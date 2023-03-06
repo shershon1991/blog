@@ -1,0 +1,554 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>正则表达式 | 码农小山</title><meta name="keywords" content="正则表达式"><meta name="author" content="谭晓珊,18810877074@163.com"><meta name="copyright" content="谭晓珊"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="正则表达式基本语法1.界定符 2.原子 3.量词 4.边界控制 5.模式单元 界定符表示一个正则表达式的开始和结束 &#x2F;[0-9]&#x2F; or #[0-9]# or &amp;#123;[0-9]&amp;#125; 正则表达式工具 regexpal 原子可见原子 Unicode编码表中用键盘输出后肉眼可见的字符有哪些？  标点; “ _ ? .等等 英文字母数字a-z,A-Z,0-9 汉字、日文、阿拉伯文等其他语言文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="http://blog.shershon.top/2022/08/11/%E5%85%B6%E4%BB%96/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="码农小山">
+<meta property="og:description" content="正则表达式基本语法1.界定符 2.原子 3.量词 4.边界控制 5.模式单元 界定符表示一个正则表达式的开始和结束 &#x2F;[0-9]&#x2F; or #[0-9]# or &amp;#123;[0-9]&amp;#125; 正则表达式工具 regexpal 原子可见原子 Unicode编码表中用键盘输出后肉眼可见的字符有哪些？  标点; “ _ ? .等等 英文字母数字a-z,A-Z,0-9 汉字、日文、阿拉伯文等其他语言文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg">
+<meta property="article:published_time" content="2022-08-10T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-09-20T12:18:03.530Z">
+<meta property="article:author" content="谭晓珊">
+<meta property="article:tag" content="正则表达式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://blog.shershon.top/2022/08/11/%E5%85%B6%E4%BB%96/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"TTENARPLYL","apiKey":"9f0c02b55e9885568dcbf6ef094b433c","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '正则表达式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-20 20:18:03'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">177</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">正则表达式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-08-10T16:00:00.000Z" title="发表于 2022-08-11 00:00:00">2022-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-20T12:18:03.530Z" title="更新于 2022-09-20 20:18:03">2022-09-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%85%B6%E4%BB%96/">其他</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="正则表达式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/08/11/%E5%85%B6%E4%BB%96/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/08/11/%E5%85%B6%E4%BB%96/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h2 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p>1.界定符</p>
+<p>2.原子</p>
+<p>3.量词</p>
+<p>4.边界控制</p>
+<p>5.模式单元</p>
+<h4 id="界定符"><a href="#界定符" class="headerlink" title="界定符"></a>界定符</h4><p>表示一个正则表达式的开始和结束</p>
+<p><code>/[0-9]/ or #[0-9]# or &#123;[0-9]&#125;</code></p>
+<p>正则表达式工具</p>
+<p>regexpal</p>
+<h3 id="原子"><a href="#原子" class="headerlink" title="原子"></a>原子</h3><p><strong>可见原子</strong></p>
+<p>Unicode编码表中用键盘输出后肉眼可见的字符有哪些？</p>
+<ul>
+<li>标点; “ _ ? .等等</li>
+<li>英文字母数字a-z,A-Z,0-9</li>
+<li>汉字、日文、阿拉伯文等其他语言文字</li>
+<li>∑,∈,∮,≌等数理化公式符号</li>
+<li>其他可见字符</li>
+</ul>
+<p><strong>不可见原子</strong></p>
+<p>Unicode编码表中用键盘输出后肉眼不可见的字符有哪些？</p>
+<ul>
+<li>换行符\n</li>
+<li>回车\r</li>
+<li>制表符\t</li>
+<li>空格</li>
+<li>其他不可见符号</li>
+</ul>
+<h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><p><strong>原子的筛选方式</strong></p>
+<ul>
+<li>| 匹配两个或者多个分支选择</li>
+<li>[] 匹配方括号中的任意一个原子</li>
+<li>[^] 匹配除方括号中的原子之外的任意字符</li>
+</ul>
+<p><strong>原子的集合</strong></p>
+<ul>
+<li>. 匹配除换行符之外的任意一个字符</li>
+<li>\d 匹配任意一个十进制数字，即[0-9]</li>
+<li>\D 匹配任意一个非十进制数字，即[^0-9]</li>
+<li>\s 匹配任意一个不可见原子，即[\f\n\r\t\v]</li>
+<li>\S 匹配任意一个可见原子，即[^\f\n\r\t\v]</li>
+<li>\w 匹配任意一个大小写字母、数字或下划线，即[0-9a-zA-Z_]_</li>
+<li>\W 匹配任意一个非大小写字母、数字或下划线，即[^0-9a-zA-Z_]</li>
+</ul>
+<h3 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h3><ul>
+<li>{n} 表示其前面的原子出现n次</li>
+<li>{n,} 表示其前面的原子最少出现n次</li>
+<li>{n,m} 表示其前面的原子最少出现n~m次</li>
+<li>* 匹配0次或者多次其之前的原子，即{0,}</li>
+<li>+ 匹配1次或者多次其之前的原子，即{1,}</li>
+<li>? 匹配0次或者1次其之前的原子，即{0,1}</li>
+</ul>
+<h3 id="边界控制与模式单元"><a href="#边界控制与模式单元" class="headerlink" title="边界控制与模式单元"></a>边界控制与模式单元</h3><ul>
+<li>^ 匹配字符串开始的位置</li>
+<li>$ 匹配字符串结尾的位置</li>
+<li>() 匹配其中的整体为一个原子</li>
+</ul>
+<h3 id="修正模式"><a href="#修正模式" class="headerlink" title="修正模式"></a>修正模式</h3><ul>
+<li>贪婪匹配(u,默认)和懒惰匹配(U)</li>
+<li>贪婪模式</li>
+<li>匹配结果存在歧义时取其长</li>
+</ul>
+<h3 id="懒惰模式"><a href="#懒惰模式" class="headerlink" title="懒惰模式"></a>懒惰模式</h3><p>匹配结果存在歧义时取其短</p>
+<h3 id="常见修正模式"><a href="#常见修正模式" class="headerlink" title="常见修正模式"></a>常见修正模式</h3><p>U&#x2F;u[默认] - 懒惰匹配&#x2F;贪婪匹配</p>
+<p>i - 忽略英文字母大小写</p>
+<p>x - 忽略空白符</p>
+<p>s - 让元字符’.’匹配包括换行符在内的任意字符</p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><p>匹配手机号: ^1[34578]\d{9}$ 或者 ^1(3|4|5|7|8)\d{9}$</p>
+<p>email:  <code>^[\w\.]+@\w+(\.\w+)+$</code></p>
+<p>url:  <code>^(https?:\/\/)?\w+(\.\w)+$</code></p>
+<h3 id="PHP中常用的正则表达式函数"><a href="#PHP中常用的正则表达式函数" class="headerlink" title="PHP中常用的正则表达式函数"></a>PHP中常用的正则表达式函数</h3><p><code>preg_match($pattern, $subject[, array &amp;$matches])</code></p>
+<p><code>preg_match_all($pattern, $subject, array &amp;$matches)</code></p>
+<p><code>preg_replace($pattern, $replacement, $subject)</code></p>
+<p><code>preg_filter($pattern, $replacement, $subject)</code></p>
+<p><code>preg_grep($pattern, array $input)</code></p>
+<p><code>preg_split($pattern, $subject)</code></p>
+<p><code>preg_quote($str)</code></p>
+<p><strong>正则运算符转义</strong></p>
+<p><code>. \ + * ? [ ^ ] $ () &#123;&#125; = ! &lt; &gt; | : -</code></p>
+<p>总结：</p>
+<p>1.都是以preg_开头</p>
+<p>2.除了preg_quote以外，第一个参数都是正则表达式</p>
+<p>3.preg_match-表单验证等</p>
+<p>4.preg_replace-非法词语过滤等</p>
+<h3 id="Shell编程之正则表达式"><a href="#Shell编程之正则表达式" class="headerlink" title="Shell编程之正则表达式"></a>Shell编程之正则表达式</h3><h4 id="正则表达式-1"><a href="#正则表达式-1" class="headerlink" title="正则表达式"></a>正则表达式</h4><p><strong>1.正则表达式是什么？</strong></p>
+<p>正则表达式是用于秒数字符排列和匹配模式的一种语法规则。它主要用于字符串的模式分割、匹配、查找和替换操作。</p>
+<p><strong>2.正则表达式与通配符</strong></p>
+<p>l 正则表达式是用来在文件中匹配符合条件的字符串，正则是包含匹配。grep、awk、sed 等命令可以支持正则表达式。</p>
+<p>l 通配符用来匹配符合条件的文件名，通配符是完全匹配。ls、find、cp这些命令不支 持正则表达式，所以只能使用shell自己的通配符来进行匹配了。</p>
+<p>l 通配符</p>
+<p>¡ * 匹配任意内容</p>
+<p>¡ ? 匹配任意一个内容</p>
+<p>¡ [] 匹配中括号中的一个字符</p>
+<p><strong>3.基础正则表达式</strong></p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/regex/wpshUwdL7.png" alt="img"></p>
+<p>3.1“*” 前一个字符匹配0次或多次</p>
+<ul>
+<li>“a*”</li>
+</ul>
+<p>匹配所有的内容，包括空白行</p>
+<ul>
+<li>“aa*”</li>
+</ul>
+<p>匹配至少包含有1个a的行</p>
+<ul>
+<li>“aaa*”</li>
+</ul>
+<p>匹配至少包含有连续2个a的行</p>
+<ul>
+<li>“aaaaa*”</li>
+</ul>
+<p>匹配至少包含有连续4个a的行</p>
+<p>3.2“.” 匹配出换行符之外的任意一个字符</p>
+<ul>
+<li>“s..d”</li>
+</ul>
+<p>匹配在s和d之间一个会有2个字符的单词</p>
+<ul>
+<li>“s.*d”</li>
+</ul>
+<p>匹配在s和d之间有任意字符</p>
+<ul>
+<li>“.*”</li>
+</ul>
+<p>匹配所有内容</p>
+<p>3.3“^” 匹配行首，“$” 匹配行尾</p>
+<ul>
+<li>“^M”</li>
+</ul>
+<p>匹配以大写M开头的行</p>
+<ul>
+<li>“n$”</li>
+</ul>
+<p>匹配以小写n结尾的行</p>
+<ul>
+<li>“^$”</li>
+</ul>
+<p>匹配空白行</p>
+<p>3.4“[]” 匹配中括号中指定的任意一个字符，只匹配一个字符</p>
+<ul>
+<li>“s[ao]id”</li>
+</ul>
+<p>匹配s和i字母中，要么是a，要么是o</p>
+<ul>
+<li>“[0-9]”</li>
+</ul>
+<p>匹配任意一个数字</p>
+<ul>
+<li>“^[a-z]”</li>
+</ul>
+<p>匹配以小写字母开头的行</p>
+<p>3.5“[^]” 匹配出中括号的字符以外的任意一个字符</p>
+<ul>
+<li>“^[^a-z]”</li>
+</ul>
+<p>匹配不以小写字母开头的行</p>
+<ul>
+<li>“^[^a-zA-Z]”</li>
+</ul>
+<p>匹配不以字母开头的行</p>
+<p>3.6“\” 转义符</p>
+<ul>
+<li>“.$”</li>
+</ul>
+<p>匹配使用.结尾的行</p>
+<p>3.7“{n}” 表示其前面的字符恰好出现n次</p>
+<ul>
+<li>“a{3}”</li>
+</ul>
+<p>匹配小写字母a连续出现3次的字符串</p>
+<ul>
+<li>“[0-9]{3}”</li>
+</ul>
+<p>匹配包含连续的3个数字的字符串</p>
+<p>3.8“{n,}” 表示其前面的字符出现至少n次</p>
+<ul>
+<li>“^[0-9]{3,}[a-z]”</li>
+</ul>
+<p>匹配最少以连续3个数字开头的行</p>
+<p>3.9几个例子</p>
+<ul>
+<li>[0-9]{4}-[0-9]{2}-[0-9]{2}</li>
+</ul>
+<p>匹配日期格式YYYY-MM-DD</p>
+<ul>
+<li>[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}</li>
+</ul>
+<p>匹配IP地址</p>
+<h3 id="字符截取命令"><a href="#字符截取命令" class="headerlink" title="字符截取命令"></a>字符截取命令</h3><h4 id="cut字段提取命令"><a href="#cut字段提取命令" class="headerlink" title="cut字段提取命令"></a>cut字段提取命令</h4><p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/regex/wpso4DRxC.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/regex/wpsBkhrBS.png" alt="img"></p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/regex/wpsOmkXex.png" alt="img"></p>
+<h4 id="printf命令"><a href="#printf命令" class="headerlink" title="printf命令"></a>printf命令</h4><ul>
+<li><p>Printf ‘输出类型输出格式’ 输出内容</p>
+</li>
+<li><p>输出类型</p>
+<ul>
+<li><p>%ns: 输出字符串。n是数字，指输出几个字符</p>
+</li>
+<li><p>%ni: 输出整数。n是数字，指输出几个数字</p>
+</li>
+<li><p>%m.nf: 输出浮点数。m和n是数字，指输出的整数位数和小数位数。如%8.2f代表共输出8位数，其中2位是小数，6位是整数。</p>
+</li>
+</ul>
+</li>
+<li><p>输出格式</p>
+<ul>
+<li>\a: 输出警告声音</li>
+<li>\b: 输出退格键，即backspace键</li>
+<li>\f: 清除屏幕</li>
+<li>\n: 换行</li>
+<li>\r: 回车，即enter键</li>
+<li>\t: 水平制表符</li>
+<li>\v: 垂直制表符</li>
+</ul>
+</li>
+<li><p>printf ‘%s’ $(cat students.txt)</p>
+<ul>
+<li>不调整输出格式</li>
+<li>printf ‘%s\t%s\t%s\t%s\n’ $(cat students.txt)</li>
+<li>调整输出格式</li>
+</ul>
+</li>
+<li><p>在awk命令的输出中支持print和printf命令</p>
+<ul>
+<li>print: print会在每个输出之后自动加入一个换行符（Linux默认没有print命令）</li>
+<li>printf: printf是标准格式输出命令，并不会自动加入换行符，若需要换行，需要手动加入换行符。</li>
+</ul>
+</li>
+</ul>
+<h4 id="awk命令"><a href="#awk命令" class="headerlink" title="awk命令"></a>awk命令</h4><ul>
+<li><p>awk ‘条件1{动作1}条件2{动作2}…’ 文件名</p>
+</li>
+<li><p>条件（pattern）：</p>
+<ul>
+<li>一般使用关系表达式作为条件</li>
+<li>X&gt;10，判断变量x是否大于10</li>
+<li>X&gt;&#x3D;10，判断变量x是否大于或等于10</li>
+<li>X&lt;&#x3D;10，判断变量x是否小于或等于10</li>
+</ul>
+</li>
+<li><p>动作（action）：</p>
+<ul>
+<li>格式化输出</li>
+<li>流程控制语句</li>
+</ul>
+</li>
+<li><p>Begin</p>
+<ul>
+<li>awk ‘BEGIN{printf “This is a transcript \n”}{printf $2 “\t” $4 “\n”}’ students.txt</li>
+</ul>
+</li>
+<li><p>End</p>
+<ul>
+<li>awk ‘END{printf “The End \n”}{printf $2 “\t” $4 “\n”}’ students.txt</li>
+</ul>
+</li>
+<li><p>FS内置变量</p>
+<ul>
+<li>cat &#x2F;etc&#x2F;passwd | grep “&#x2F;bin&#x2F;sh” | awk ‘BEGIN{FS&#x3D;”:”}{printf $2 “\t” $4 “\n”}’</li>
+</ul>
+</li>
+<li><p>关系运算符</p>
+<ul>
+<li>Cat students.txt | grep -v Name | awk ‘$4 &gt;&#x3D; 70{printf $2 “\n”}’</li>
+</ul>
+</li>
+</ul>
+<h4 id="sed命令"><a href="#sed命令" class="headerlink" title="sed命令"></a>sed命令</h4><ul>
+<li><p>sed是一种几乎包括在所有Unix平台（包括Linux）的轻量级流编辑器。sed主要是用来将数据进行选取、替换、删除、新增的命令。</p>
+</li>
+<li><p>sed  [选项]  ‘动作’ 文件名</p>
+<ul>
+<li>选项:</li>
+</ul>
+<p>n -n: 一般sed命令会把所有的数据都输出到屏幕，若加入此选项，则只会把经过sed命令处理的行输出到屏幕</p>
+<p>n -e: 允许对输出数据引用多条sed命令编辑</p>
+<p>n -i: 用sed的修改结果直接修改读取数据的文件，而不是由屏幕输出</p>
+<ul>
+<li>动作：</li>
+</ul>
+</li>
+</ul>
+<p>​ n a: 追加。在当前行后添加一行或多行</p>
+<p>​ n c: 行替换，用c后面的字符串替换原数据行</p>
+<p>​ n i: 插入。在当前行前插入一行或多行。d: 删除，删除指定的行</p>
+<p>​ n p: 打印。输出指定的行</p>
+<p>​ n s: 字符替换。用一个字符串替换另外一个字符串。格式为”行范围s&#x2F;旧字串&#x2F;新字串&#x2F;g”（和vim中的替换格式类似）</p>
+<ul>
+<li><p>行数据操作</p>
+<ul>
+<li>sed ‘2p’ student.txt<ul>
+<li>n 查看文件的第二行</li>
+</ul>
+</li>
+<li>sed -n ‘2p’ student.txt</li>
+<li>sed ‘2,4d’ student.txt</li>
+<li>n 删除第二行到第四行的数据，但不修改文件本身</li>
+<li>sed ‘2a hello’ student.txt</li>
+<li>n 在第二行后追加hello</li>
+<li>sed ‘2i hello’ student.txt</li>
+<li>n 在第二行前插入hello</li>
+<li>sed ‘2c furong bujige’ student.txt</li>
+<li>n 数据替换</li>
+</ul>
+</li>
+<li><p>字符串替换</p>
+<ul>
+<li>sed ‘s&#x2F;旧子串&#x2F;新字串&#x2F;g’ 文件名</li>
+<li>sed ‘3s&#x2F;60&#x2F;99&#x2F;g’ student.txt</li>
+<li>n 在第三行中，将60替换成90</li>
+<li>sed -i ‘3s&#x2F;60&#x2F;99&#x2F;g’ student.txt</li>
+<li>n sed操作的数据直接写入文件</li>
+<li>sed -e ‘s&#x2F;fengj&#x2F;&#x2F;g; s&#x2F;cang&#x2F;&#x2F;g’ student.txt</li>
+<li>n 同时把“fengj”和“cang”替换为空</li>
+</ul>
+</li>
+</ul>
+<h3 id="字符处理命令"><a href="#字符处理命令" class="headerlink" title="字符处理命令"></a>字符处理命令</h3><h4 id="排序命令sort"><a href="#排序命令sort" class="headerlink" title="排序命令sort"></a>排序命令sort</h4><ul>
+<li><p>Sort [选项] 文件名</p>
+</li>
+<li><p>选项</p>
+<ul>
+<li>-f: 忽略大小写</li>
+<li>-n: 以数值型进行排序，模式使用字符串型排序</li>
+<li>-r: 反向排序</li>
+<li>-t: 指定分隔符，默认分隔符是制表符</li>
+<li>-k n[,m]: 按照指定的字段范围排序。从第n个字段开始，m个字段结尾（默认到行尾）。</li>
+</ul>
+</li>
+<li><p>sort &#x2F;etc&#x2F;passwd</p>
+<ul>
+<li>排序用户信息文件</li>
+</ul>
+</li>
+<li><p>sort -r &#x2F;etc&#x2F;passwd</p>
+<ul>
+<li>反向排序</li>
+</ul>
+</li>
+<li><p>sort -t “:” -k “3,3” &#x2F;etc&#x2F;passwd</p>
+</li>
+<li><p>制定分隔符是“:”，用第三个字段开头，第三个字段结尾排序，即只用第三个字段排序。</p>
+</li>
+<li><p>sort -n -t “:” -k “3,3” &#x2F;etc&#x2F;passwd</p>
+</li>
+</ul>
+<h4 id="统计命令wc"><a href="#统计命令wc" class="headerlink" title="统计命令wc"></a>统计命令wc</h4><ul>
+<li><p>wc [选项] 文件名</p>
+</li>
+<li><p>选项</p>
+<ul>
+<li>-l: 只统计行数</li>
+<li>-w: 只统计单词数</li>
+<li>-m: 只统计字符数</li>
+</ul>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://blog.shershon.top">谭晓珊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.shershon.top/2022/08/11/%E5%85%B6%E4%BB%96/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">http://blog.shershon.top/2022/08/11/%E5%85%B6%E4%BB%96/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.shershon.top" target="_blank">码农小山</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">正则表达式</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_wechat.jpeg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_wechat.jpeg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_alipay.jpeg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_alipay.jpeg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/08/28/%E7%BC%96%E7%A8%8B/Go/Gin%E9%9B%86%E6%88%90/06-es/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Gin集成(六):集成ElasticSearch</div></div></a></div><div class="next-post pull-right"><a href="/2022/08/11/%E5%85%B6%E4%BB%96/%E5%B7%A5%E5%85%B7/Charles/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Charles</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">谭晓珊</div><div class="author-info__description">生活幸福，健康快乐！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">177</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shershon1991"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shershon1991" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:18810877074@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">新人报道，请大家多多关照！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95"><span class="toc-text">基本语法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%95%8C%E5%AE%9A%E7%AC%A6"><span class="toc-text">界定符</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%9F%E5%AD%90"><span class="toc-text">原子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%83%E5%AD%97%E7%AC%A6"><span class="toc-text">元字符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8F%E8%AF%8D"><span class="toc-text">量词</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E6%8E%A7%E5%88%B6%E4%B8%8E%E6%A8%A1%E5%BC%8F%E5%8D%95%E5%85%83"><span class="toc-text">边界控制与模式单元</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%AD%A3%E6%A8%A1%E5%BC%8F"><span class="toc-text">修正模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%87%92%E6%83%B0%E6%A8%A1%E5%BC%8F"><span class="toc-text">懒惰模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E4%BF%AE%E6%AD%A3%E6%A8%A1%E5%BC%8F"><span class="toc-text">常见修正模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E6%88%98"><span class="toc-text">实战</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%87%BD%E6%95%B0"><span class="toc-text">PHP中常用的正则表达式函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Shell%E7%BC%96%E7%A8%8B%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">Shell编程之正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-1"><span class="toc-text">正则表达式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E6%88%AA%E5%8F%96%E5%91%BD%E4%BB%A4"><span class="toc-text">字符截取命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#cut%E5%AD%97%E6%AE%B5%E6%8F%90%E5%8F%96%E5%91%BD%E4%BB%A4"><span class="toc-text">cut字段提取命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#printf%E5%91%BD%E4%BB%A4"><span class="toc-text">printf命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#awk%E5%91%BD%E4%BB%A4"><span class="toc-text">awk命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#sed%E5%91%BD%E4%BB%A4"><span class="toc-text">sed命令</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%A4%84%E7%90%86%E5%91%BD%E4%BB%A4"><span class="toc-text">字符处理命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E5%91%BD%E4%BB%A4sort"><span class="toc-text">排序命令sort</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E8%AE%A1%E5%91%BD%E4%BB%A4wc"><span class="toc-text">统计命令wc</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/02/%E7%BC%96%E7%A8%8B/PHP/PHP%E6%89%A9%E5%B1%95/4-jwt/" title="php扩展(四):jwt">php扩展(四):jwt</a><time datetime="2023-03-01T16:00:00.000Z" title="发表于 2023-03-02 00:00:00">2023-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/27/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/01-%E7%BC%96%E8%AF%91%E5%99%A8/" title="Go底层探索(一):编译器">Go底层探索(一):编译器</a><time datetime="2023-02-26T16:00:00.000Z" title="发表于 2023-02-27 00:00:00">2023-02-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/05/%E7%BC%96%E7%A8%8B/Go/%E6%89%A9%E5%B1%95%E5%8C%85/34-rocketmq/" title="Go扩展包(三十四):rocketmq">Go扩展包(三十四):rocketmq</a><time datetime="2022-10-04T16:00:00.000Z" title="发表于 2022-10-05 00:00:00">2022-10-05</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/09/30/%E7%BC%96%E7%A8%8B/PHP/PHP%E6%89%A9%E5%B1%95/3-rocketmq/" title="php扩展(三):阿里云RocketMQ">php扩展(三):阿里云RocketMQ</a><time datetime="2022-09-29T16:00:00.000Z" title="发表于 2022-09-30 00:00:00">2022-09-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/09/25/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/rpc/06-gRPC%E4%B8%AD%E7%9A%84%E6%88%AA%E5%8F%96%E5%99%A8/" title="RPC编程(六):gRPC中的截取器">RPC编程(六):gRPC中的截取器</a><time datetime="2022-09-25T00:03:00.000Z" title="发表于 2022-09-25 08:03:00">2022-09-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 谭晓珊</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn">鄂ICP备2022015295号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'YjWLdM2rBo9Vj9GlbMghmKFc-gzGzoHsz',
+      appKey: 'Vic4lHitiOVBpUuCtQcEwmCI',
+      avatar: 'wavatar',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script>(function(d, w, c) {
+    w.ChatraID = 'Cqd4CQF7bWHcxHyNs';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
