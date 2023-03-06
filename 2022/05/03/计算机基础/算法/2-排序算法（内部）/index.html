@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg">
 <meta property="article:published_time" content="2022-05-02T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-06T03:05:02.744Z">
+<meta property="article:modified_time" content="2023-03-06T06:29:58.302Z">
 <meta property="article:author" content="谭晓珊">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-03-06 11:05:02'
+  postUpdate: '2023-03-06 14:29:58'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -142,7 +142,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">177</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">排序算法（内部）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-02T16:00:00.000Z" title="发表于 2022-05-03 00:00:00">2022-05-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-06T03:05:02.744Z" title="更新于 2023-03-06 11:05:02">2023-03-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="排序算法（内部）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95/2-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E5%86%85%E9%83%A8%EF%BC%89/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95/2-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E5%86%85%E9%83%A8%EF%BC%89/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="插入排序算法"><a href="#插入排序算法" class="headerlink" title="插入排序算法"></a>插入排序算法</h1><p>插入排序算法是所有排序方法中最简单的一种算法，其主要的实现思想是将数据按照一定的顺序一个一个地插入到有序的表中，最终得到的序列就是已经排序好的数据。</p>
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">177</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">排序算法（内部）</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-02T16:00:00.000Z" title="发表于 2022-05-03 00:00:00">2022-05-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-06T06:29:58.302Z" title="更新于 2023-03-06 14:29:58">2023-03-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="排序算法（内部）"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95/2-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E5%86%85%E9%83%A8%EF%BC%89/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/03/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95/2-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%EF%BC%88%E5%86%85%E9%83%A8%EF%BC%89/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="插入排序算法"><a href="#插入排序算法" class="headerlink" title="插入排序算法"></a>插入排序算法</h1><p>插入排序算法是所有排序方法中最简单的一种算法，其主要的实现思想是将数据按照一定的顺序一个一个地插入到有序的表中，最终得到的序列就是已经排序好的数据。</p>
 <p>注意：很多初学者所说的插入排序，实际上指的就是直接插入排序算法，插入排序算法还包括: 折半插入排序算法、2-路插入排序算法、表插入排序算法和希尔排序算法等。</p>
 <p><strong>插入排序算法-直接插入</strong></p>
 <p>直接插入排序算法是插入排序算法中的一种，采用的方法是：在添加新的记录时，使用顺序查找的方式找到其要插入的位置，然后将新记录插入。</p>
@@ -169,8 +169,12 @@
 <p>该算法的时间复杂度为 O(nlogn)，同简单选择排序相比，该算法减少了不同记录之间的比较次数，但是程序运行所需要的空间较多。</p>
 <p><strong>堆排序</strong></p>
 <p>在学习堆排序之前，首先需要了解堆的含义：在含有 n 个元素的序列中，如果序列中的元素满足下面其中一种关系时，此序列可以称之为堆。</p>
-<p>l ki ≤ k2i 且 ki ≤ k2i+1（在 n 个记录的范围内，第 i 个关键字的值小于第 2<em>i 个关键字，同时也小于第 2</em>i+1 个关键字）</p>
-<p>l ki ≥ k2i 且 ki ≥ k2i+1（在 n 个记录的范围内，第 i 个关键字的值大于第 2<em>i 个关键字，同时也大于第 2</em>i+1 个关键字）</p>
+<ul>
+<li><p>ki ≤ k2i 且 ki ≤ k2i+1（在 n 个记录的范围内，第 i 个关键字的值小于第 2<em>i 个关键字，同时也小于第 2</em>i+1 个关键字）</p>
+</li>
+<li><p>ki ≥ k2i 且 ki ≥ k2i+1（在 n 个记录的范围内，第 i 个关键字的值大于第 2<em>i 个关键字，同时也大于第 2</em>i+1 个关键字）</p>
+</li>
+</ul>
 <p>对于堆的定义也可以使用完全二叉树来解释，因为在完全二叉树中第 i 个结点的左孩子恰好是第 2i 个结点，右孩子恰好是 2i+1<br>个结点。如果该序列可以被称为堆，则使用该序列构建的完全二叉树中，每个根结点的值都必须不小于（或者不大于）左右孩子结点的值。</p>
 <p>注意：堆用完全二叉树表示时，其表示方法不唯一，但是可以确定的是树的根结点要么是无序表中的最小值，要么是最大值。</p>
 <p>通过将无序表转化为堆，可以直接找到表中最大值或者最小值，然后将其提取出来，令剩余的记录再重建一个堆，取出次大值或者次小值，如此反复执行就可以得到一个有序序列，此过程为堆排序。</p>
@@ -205,17 +209,29 @@
 </li>
 </ol>
 <p>整个过程中最重要的是实现第 2 步的分割操作，具体实现过程为：</p>
-<p>l 设置两个指针 low 和 high，分别指向无序表的表头和表尾，如下图所示：</p>
+<ul>
+<li>设置两个指针 low 和 high，分别指向无序表的表头和表尾，如下图所示：</li>
+</ul>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/dataStructAndAlgorithm/wps7jGksh.jpg" alt="img"></p>
-<p>l 先由 high 指针从右往左依次遍历，直到找到一个比 49 小的关键字，所以 high 指针走到 27 的地方停止。找到之后将该关键字同 low 指向的关键字进行互换：</p>
+<ul>
+<li>先由 high 指针从右往左依次遍历，直到找到一个比 49 小的关键字，所以 high 指针走到 27 的地方停止。找到之后将该关键字同 low 指向的关键字进行互换：</li>
+</ul>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/dataStructAndAlgorithm/wpsF4j7II.jpg" alt="img"></p>
-<p>l 然后指针 low 从左往右依次遍历，直到找到一个比 49 大的关键字为止，所以 low 指针走 到 65 的地方停止。同样找到后同 high 指向的关键字进行互换：</p>
+<ul>
+<li>然后指针 low 从左往右依次遍历，直到找到一个比 49 大的关键字为止，所以 low 指针走 到 65 的地方停止。同样找到后同 high 指向的关键字进行互换：</li>
+</ul>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/dataStructAndAlgorithm/wps8vgQuV.jpg" alt="img"></p>
-<p>l 指针 high 继续左移，到 13 所在的位置停止（13&lt;49），然后同 low 指向的关键字进行 互换：</p>
+<ul>
+<li>指针 high 继续左移，到 13 所在的位置停止（13&lt;49），然后同 low 指向的关键字进行 互换：</li>
+</ul>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/dataStructAndAlgorithm/wpsMoMXuz.jpg" alt="img"></p>
-<p>l 指针 low 继续右移，到 97 所在的位置停止（97&gt;49），然后同 high 指向的关键字互换 位置：</p>
+<ul>
+<li>指针 low 继续右移，到 97 所在的位置停止（97&gt;49），然后同 high 指向的关键字互换 位置：</li>
+</ul>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/dataStructAndAlgorithm/wpsMTCDXx.jpg" alt="img"></p>
-<p>l 指针 high 继续左移，此时两指针相遇，整个过程结束</p>
+<ul>
+<li>指针 high 继续左移，此时两指针相遇，整个过程结束</li>
+</ul>
 <p><strong>具体实现：</strong></p>
 <p>见代码。</p>
 <p><strong>总结</strong></p>
