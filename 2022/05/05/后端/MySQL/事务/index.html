@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg">
 <meta property="article:published_time" content="2022-05-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-06T02:48:54.554Z">
+<meta property="article:modified_time" content="2023-06-23T16:58:25.365Z">
 <meta property="article:author" content="谭晓珊">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-03-06 10:48:54'
+  postUpdate: '2023-06-24 00:58:25'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -142,35 +142,60 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL 事务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T16:00:00.000Z" title="发表于 2022-05-05 00:00:00">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-06T02:48:54.554Z" title="更新于 2023-03-06 10:48:54">2023-03-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 事务"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E4%BA%8B%E5%8A%A1/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E4%BA%8B%E5%8A%A1/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="1-数据库突然断电会丢数据吗？"><a href="#1-数据库突然断电会丢数据吗？" class="headerlink" title="1.数据库突然断电会丢数据吗？"></a>1.数据库突然断电会丢数据吗？</h1><p>什么是事务？</p>
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL 事务</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T16:00:00.000Z" title="发表于 2022-05-05 00:00:00">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-23T16:58:25.365Z" title="更新于 2023-06-24 00:58:25">2023-06-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 事务"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E4%BA%8B%E5%8A%A1/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E4%BA%8B%E5%8A%A1/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="1-数据库突然断电会丢数据吗？"><a href="#1-数据库突然断电会丢数据吗？" class="headerlink" title="1.数据库突然断电会丢数据吗？"></a>1.数据库突然断电会丢数据吗？</h1><p>什么是事务？</p>
 <p>根据《高性能 MySQL》第 3 版 1.3 事务一节中定义：</p>
 <p>事务就是一组原子性的 SQL<br>查询，或者说一个独立的工作单元。如果数据库引擎能够成功地对数据库应用该组查询的全部语句，那么就执行该组查询。如果其中有任何一条语句因为崩溃或其他原因无法执行，那么所有的语句都不会执行。也就是说，事务内的语句，要么全部执行成功，要么全部执行失败。</p>
 <p>一个良好的事务处理系统，必须具备 ACID 特性：</p>
-<p>l atomicity（原子性） ：要么全部执行，要么全部都不执行。原子性是由undo log来保证的，因为undo log记录着数据修改前的信息。</p>
-<p>l consistency（一致性）：在事务开始和完成时，数据都必须保持一致状态。一致性是事务的目的，一致性由应用程序来保证。</p>
-<p>l isolation（隔离性） ：事务处理过程中的中间状态对外部是不可见的。隔离性由数据库提供隔离级别供我们选择，分别有read uncommitted, read committed, repeatable read,<br>serializable。</p>
-<p>l durability（持久性） ：事务完成之后，它对于数据的修改是永久性的。持久性由redo log来保证。</p>
+<ul>
+<li><p>atomicity（原子性） ：要么全部执行，要么全部都不执行。原子性是由undo log来保证的，因为undo log记录着数据修改前的信息。</p>
+</li>
+<li><p>consistency（一致性）：在事务开始和完成时，数据都必须保持一致状态。一致性是事务的目的，一致性由应用程序来保证。</p>
+</li>
+<li><p>isolation（隔离性） ：事务处理过程中的中间状态对外部是不可见的。隔离性由数据库提供隔离级别供我们选择，分别有read uncommitted, read committed, repeatable read,<br>serializable。</p>
+</li>
+<li><p>durability（持久性） ：事务完成之后，它对于数据的修改是永久性的。持久性由redo log来保证。</p>
+</li>
+</ul>
 <p>Redo log</p>
 <p>Redo log 称为重做日志，用于记录事务操作变化，记录的是数据被修改之后的值。</p>
 <p>Redo log 由两部分组成：</p>
-<p>l 内存中的重做日志缓冲(redo log buffer)</p>
-<p>l 重做日志文件(redo log file)</p>
+<ul>
+<li><p>内存中的重做日志缓冲(redo log buffer)</p>
+</li>
+<li><p>重做日志文件(redo log file)</p>
+</li>
+</ul>
 <p>每次数据更新会先更新 redo log buffer，然后根据innodb_flush_log_at_trx_commit 来控制 redo log buffer 更新到 redo log file<br>的时机。innodb_flush_log_at_trx_commit 有三个值可选：</p>
-<p>l 0：事务提交时，每秒触发一次 redo log buffer 写磁盘操作，并调用操作系统 fsync 刷新 IO 缓存。</p>
-<p>l 1：事务提交时，InnoDB 立即将缓存中的 redo 日志写到日志文件中，并调用操作系统 fsync 刷新 IO 缓存；</p>
-<p>l 2：事务提交时，InnoDB 立即将缓存中的 redo 日志写到日志文件中，但不是马上调用fsync 刷新 IO 缓存，而是每秒只做一次刷新 IO 缓存操作。</p>
+<ul>
+<li><p>0：事务提交时，每秒触发一次 redo log buffer 写磁盘操作，并调用操作系统 fsync 刷新 IO 缓存。</p>
+</li>
+<li><p>1：事务提交时，InnoDB 立即将缓存中的 redo 日志写到日志文件中，并调用操作系统 fsync 刷新 IO 缓存；</p>
+</li>
+<li><p>2：事务提交时，InnoDB 立即将缓存中的 redo 日志写到日志文件中，但不是马上调用fsync 刷新 IO 缓存，而是每秒只做一次刷新 IO 缓存操作。</p>
+</li>
+</ul>
 <p>innodb_flush_log_at_trx_commit 参数的默认值是 1，也就是每个事务提交的时候都会将 redo log buffer<br>中的写更新记录到日志文件，而且会刷新磁盘缓存，这完全满足事务持久化的要求，是最安全的，但是这样会有比较大的性能损失。</p>
 <p>将参数设置为 0 时，如果数据库崩溃，最后 1 秒钟的 redo log 可能会由于未及时写入磁盘文件而丢失，这种方式尽管效率最高，但是最不安全。</p>
 <p>将参数设置为 2 时，如果数据库崩溃，由于已经执行了重做日志写入磁盘的操作，只是没有做磁盘 IO 刷新操作，因此，只要不发生操作系统崩溃，数据就不会丢失，这种方式是对性能和安全的一种折中处理。</p>
 <p>Binlog</p>
 <p>二进制日志（binlog）记录了所有的 DDL（数据定义语句）和 DML（数据操纵语句），但是不包括 select 和 show 这类操作。Binlog 有以下几个作用：</p>
-<p>l 恢复：数据恢复时可以使用二进制日志</p>
-<p>l 复制：通过传输二进制日志到从库，然后进行恢复，以实现主从同步</p>
-<p>l 审计：可以通过二进制日志进行审计数据的变更操作</p>
+<ul>
+<li><p>恢复：数据恢复时可以使用二进制日志</p>
+</li>
+<li><p>复制：通过传输二进制日志到从库，然后进行恢复，以实现主从同步</p>
+</li>
+<li><p>审计：可以通过二进制日志进行审计数据的变更操作</p>
+</li>
+</ul>
 <p>可以通过参数 sync_binlog 来控制累积多少个事务后才将二进制日志 fsync 到磁盘。</p>
-<p>l sync_binlog&#x3D;0，表示每次提交事务都只write，不 fsync</p>
-<p>l sync_binlog&#x3D;1，表示每次提交事务都会执行 fsync</p>
-<p>l sync_binlog&#x3D;N(N&gt;1)，表示每次提交事务都 write，累积 N 个事务后才 fsync</p>
+<ul>
+<li><p>sync_binlog&#x3D;0，表示每次提交事务都只write，不 fsync</p>
+</li>
+<li><p>sync_binlog&#x3D;1，表示每次提交事务都会执行 fsync</p>
+</li>
+<li><p>sync_binlog&#x3D;N(N&gt;1)，表示每次提交事务都 write，累积 N 个事务后才 fsync</p>
+</li>
+</ul>
 <p>比如要加快写入数据的速度或者机器磁盘 IO 瓶颈时，可以将 sync_binlog 设置成大于 1 的值，但是如果设置为 N(N&gt;1)时，如果数据库崩溃，可能会丢失最近 N 个事务的 binlog。</p>
 <p>怎样确保数据库突然断电时不丢数据？</p>
 <p>通过上面的讲解，只要 innodb_flush_log_at_trx_commit 和 sync_binlog 都为 1（通常称为：双一），就能确保 MySQL 机器断电重启后，数据不丢失。</p>
@@ -178,9 +203,14 @@
 <h1 id="2-MVCC-如何实现的？"><a href="#2-MVCC-如何实现的？" class="headerlink" title="2. MVCC 如何实现的？"></a>2. MVCC 如何实现的？</h1><p>MVCC（Multi-Version Concurrency Control，多版本并发控制）。</p>
 <p>隐藏列</p>
 <p>对于 InnoDB，每行记录除了我们创建的字段外，其实还包含 3 个隐藏的列：</p>
-<p>l ROW ID：隐藏的自增 ID，如果表没有主键，InnoDB 会自动以 ROW ID 产生一个聚簇索引树。</p>
-<p>l 事务 ID：记录最后一次修改该记录的事务 ID。</p>
-<p>l 回滚指针：指向这条记录的上一个版本。</p>
+<ul>
+<li><p>ROW ID：隐藏的自增 ID，如果表没有主键，InnoDB 会自动以 ROW ID 产生一个聚簇索引树。</p>
+</li>
+<li><p>事务 ID：记录最后一次修改该记录的事务 ID。</p>
+</li>
+<li><p>回滚指针：指向这条记录的上一个版本。</p>
+</li>
+</ul>
 <p>Undo log</p>
 <p>Undo log 就发挥了作用。Undo log 是逻辑日志，将数据库逻辑地恢复到原来的样子，所有修改都被逻辑的取消了。</p>
 <p>也就是如果是 insert 操作，其对应的回滚操作就是 delete；</p>
@@ -190,21 +220,39 @@
 <p>Read View</p>
 <p>Read View 是指事务进行快照读操作的那一刻，产生数据库系统当前活跃事务列表的一个快照。</p>
 <p>Read View 中大致包含以下内容：</p>
-<p>l trx_ids：数据库系统当前活跃事务 ID 集合；</p>
-<p>l low_limit_id：活跃事务中最大的事务 ID +1；</p>
-<p>l up_limit_id：活跃事务中最小的事务 ID；</p>
-<p>l creator_trx_id：创建这个 Read View 的事务 ID。</p>
+<ul>
+<li><p>trx_ids：数据库系统当前活跃事务 ID 集合；</p>
+</li>
+<li><p>low_limit_id：活跃事务中最大的事务 ID +1；</p>
+</li>
+<li><p>up_limit_id：活跃事务中最小的事务 ID；</p>
+</li>
+<li><p>creator_trx_id：创建这个 Read View 的事务 ID。</p>
+</li>
+</ul>
 <p>比如某个事务，创建了 Read View，那么它的 creator_trx_id 就为这个事务的 ID，假如需要访问某一行，假设这一行记录的隐藏事务 ID 为 t_id，那么可能出现的情况如下：</p>
-<p>l 如果 t_id &lt; up_limt_id，说明这行记录在这些活跃的事务创建之前就已经提交了，那么这一行记录对该事务是可见的。</p>
-<p>l 如果 t_id &gt;&#x3D; low_limt_id，说明这行记录在这些活跃的事务开始之后创建的，那么这一行记录对该事物是不可见的。</p>
-<p>l 如果 up_limit_id &lt;&#x3D; t_id &lt; low_limit_id，说明这行记录可能是在这些活跃的事务中创建的，如果 t_id 也同时在 trx_ids 中，则说明 t_id 还未提交，那么这一行记录对该事物是不可见的；如果<br>t_id 不在 trx_ids 中，则说明事务 t_id 已经提交了，那么这一行记录对该事物是可见的。</p>
+<ul>
+<li><p>如果 t_id &lt; up_limt_id，说明这行记录在这些活跃的事务创建之前就已经提交了，那么这一行记录对该事务是可见的。</p>
+</li>
+<li><p>如果 t_id &gt;&#x3D; low_limt_id，说明这行记录在这些活跃的事务开始之后创建的，那么这一行记录对该事物是不可见的。</p>
+</li>
+<li><p>如果 up_limit_id &lt;&#x3D; t_id &lt; low_limit_id，说明这行记录可能是在这些活跃的事务中创建的，如果 t_id 也同时在 trx_ids 中，则说明 t_id 还未提交，那么这一行记录对该事物是不可见的；如果<br>t_id 不在 trx_ids 中，则说明事务 t_id 已经提交了，那么这一行记录对该事物是可见的。</p>
+</li>
+</ul>
 <p>对于不可见的记录，都是通过查询 Undo log 来查询老的记录。</p>
 <p>了解了上面的原理，我们知道了，Read View 规则帮我们判断当前版本的数据是否可见。下面，我们分析下当查询一条记录时，大致的步骤：</p>
-<p>l 获取事务本身的事务 ID；</p>
-<p>l 获取 Read View；</p>
-<p>l 查询得到的数据，然后与 Read View 中的事务版本号进行比较；</p>
-<p>l 如果能查询，则直接查询对应的记录；如果不能直接查询，则通过 Undo Log获取历史快照；</p>
-<p>l 最终返回结果。</p>
+<ul>
+<li><p>获取事务本身的事务 ID；</p>
+</li>
+<li><p>获取 Read View；</p>
+</li>
+<li><p>查询得到的数据，然后与 Read View 中的事务版本号进行比较；</p>
+</li>
+<li><p>如果能查询，则直接查询对应的记录；如果不能直接查询，则通过 Undo Log获取历史快照；</p>
+</li>
+<li><p>最终返回结果。</p>
+</li>
+</ul>
 <p>另外需要补充的一点就是，在 RR 和 RC 隔离级别下，获取 Read View 的时机也是不一样的：</p>
 <p>在可重复读隔离级别（RR）下，同一个事务中，查询语句只是在第一个读请求发起时获取 Read View，而后面相同的查询语句都会使用这个 Read View。</p>
 <p>在读已提交隔离级别（RC）下，同一个事务中，同样的查询语句在每次读请求发起时都会获得 Read View。</p>
@@ -217,11 +265,18 @@
 <p>MVCC 的实现原理</p>
 <p>我们拿上面的例子，对应解释下 MVCC 的实现原理，如下图：</p>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wpsuC1TeR.jpg" alt="img"><br>如图，首先 insert 语句向表 t20 中插入了一条数据，a 字段为 1，b 字段为 1，ROW ID 也为 1，事务 ID 假设为 1，回滚指针假设为 null。当执行 update t20 set b&#x3D;666 where a&#x3D;1<br>时，大致步骤如下：</p>
-<p>l 数据库会先对满足 a&#x3D;1 的行加排他锁；</p>
-<p>l 然后将原记录复制到 undo 表空间中；</p>
-<p>l 修改 b 字段的值为 666，修改事务 ID 为 2；</p>
-<p>l 并通过隐藏的回滚指针指向 Undo log 中的历史记录；</p>
-<p>l 事务提交，释放前面对满足 a&#x3D;1 的行所加的排他锁。</p>
+<ul>
+<li><p>数据库会先对满足 a&#x3D;1 的行加排他锁；</p>
+</li>
+<li><p>然后将原记录复制到 undo 表空间中；</p>
+</li>
+<li><p>修改 b 字段的值为 666，修改事务 ID 为 2；</p>
+</li>
+<li><p>并通过隐藏的回滚指针指向 Undo log 中的历史记录；</p>
+</li>
+<li><p>事务提交，释放前面对满足 a&#x3D;1 的行所加的排他锁。</p>
+</li>
+</ul>
 <p>在前面实验的第 6 步中，session2 查询的结果是 session1 修改之前的记录，也就是那个点的 Read View，根据上面将的 Read View 原理，被查询行的隐藏事务 ID 就在当前活跃事务 ID<br>集合中。因此，这一行记录对该事物（session2 中的事务）是不可见的，可以知道 session2 查询的 a&#x3D;1 这行记录实际就是来自 Undo log 中。我们看到的现象就是同一条记录在系统中存在了多个版本，这就是 MySQL<br>的多版本并发控制（MVCC）。</p>
 <p>需要注意的是，MVCC 只在 RC 和 RR 两个隔离级别下工作。因此在上面的实验中，改成 RR 隔离级别，第 6 步中，得到的结果还是 session1 修改之前的记录</p>
 <p>MVCC 的优势</p>
@@ -229,10 +284,16 @@
 <p>通过 MVCC，保证了事务 ACID 中的 I 特性。</p>
 <h1 id="3-不同事物隔离级别有哪些区别？"><a href="#3-不同事物隔离级别有哪些区别？" class="headerlink" title="3. 不同事物隔离级别有哪些区别？"></a>3. 不同事物隔离级别有哪些区别？</h1><p>通过基本定义认识事务隔离级别</p>
 <p>MySQL 有四种隔离级别，这四种隔离级别的定义如下：</p>
-<p>l Read Uncommitted（读未提交，简称：RU）: 在该隔离级别，所有事务都可以看到其它未提交的事务的执行结果。可能会出现脏读。</p>
-<p>l Read Committed（读已提交，简称：RC）：一个事务只能看见已经提交事务所做的改变。因为同一事务的其它实例在该实例处理期间可能会有新的 commit，所以可能出现幻读。</p>
-<p>l Repeatable Read（可重复读，简称：RR）：这是 MySQL 的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。消除了脏读、不可重复读，默认也不会出现幻读。</p>
-<p>l Serializable（串行化）：这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。</p>
+<ul>
+<li><p>Read Uncommitted（读未提交，简称：RU）: 在该隔离级别，所有事务都可以看到其它未提交的事务的执行结果。可能会出现脏读。</p>
+</li>
+<li><p>Read Committed（读已提交，简称：RC）：一个事务只能看见已经提交事务所做的改变。因为同一事务的其它实例在该实例处理期间可能会有新的 commit，所以可能出现幻读。</p>
+</li>
+<li><p>Repeatable Read（可重复读，简称：RR）：这是 MySQL 的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。消除了脏读、不可重复读，默认也不会出现幻读。</p>
+</li>
+<li><p>Serializable（串行化）：这是最高的隔离级别，它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。</p>
+</li>
+</ul>
 <p>通过生活中的例子认识事务隔离级别</p>
 <p>Read uncommitted 的例子</p>
 <p>拿零售业务场景来讲，在事务隔离级别 RU 下：比如顾客 A 在超市买单时，当收银员扫完顾客 A 的支付码后，因为网络原因，一直等待着（也就是整个支付过程的事务还没结束）；这时收银员去后台数据查询，看到 A 的钱已经进入超市账户了，然后让顾客<br>A 离开。过了一会，整个支付过程回滚了，才发现 A 实际是支付失败。这样超市岂不是很亏。这就是 RU 隔离级别可能导致脏读的情况。</p>
@@ -281,8 +342,12 @@
 <h1 id="5-细聊分布式事务"><a href="#5-细聊分布式事务" class="headerlink" title="5. 细聊分布式事务"></a>5. 细聊分布式事务</h1><p>认识分布式事务</p>
 <p>分布式事务是指一个大的事务由很多小操作组成，小操作分布在不同的服务器上或者不同的应用程序上。分布式事务需要保证这些小操作要么全部成功，要么全部失败。MySQL 从 5.0.3 开始支持分布式事务。</p>
 <p>分布式事务使用两阶段提交协议：</p>
-<p>l 第一阶段：所有分支事务都开始准备，告诉事务管理器自己已经准备好了；</p>
-<p>l 第二阶段：确定是 rollback 还是 commit，如果有一个节点不能提交，则所有节点都要回滚。</p>
+<ul>
+<li><p>第一阶段：所有分支事务都开始准备，告诉事务管理器自己已经准备好了；</p>
+</li>
+<li><p>第二阶段：确定是 rollback 还是 commit，如果有一个节点不能提交，则所有节点都要回滚。</p>
+</li>
+</ul>
 <p>与本地事务不同点在于：分布式事务需要多一次 prepare 操作，等收到所有节点的确定信息后，再进行 commit 或者 rollback。</p>
 <p>MySQL 中分布式事务按实现方式分为两种：MySQL 自带的分布式事务和结合中间件实现的分布式事务。</p>
 <p>MySQL 自带的分布式事务</p>

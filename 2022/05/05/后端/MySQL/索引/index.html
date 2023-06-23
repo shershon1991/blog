@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg">
 <meta property="article:published_time" content="2022-05-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-06T02:49:30.929Z">
+<meta property="article:modified_time" content="2023-06-23T16:52:42.794Z">
 <meta property="article:author" content="谭晓珊">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-03-06 10:49:30'
+  postUpdate: '2023-06-24 00:52:42'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -142,7 +142,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL 索引</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T16:00:00.000Z" title="发表于 2022-05-05 00:00:00">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-06T02:49:30.929Z" title="更新于 2023-03-06 10:49:30">2023-03-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 索引"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E7%B4%A2%E5%BC%95/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E7%B4%A2%E5%BC%95/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="1-跟索引相关的一些算法"><a href="#1-跟索引相关的一些算法" class="headerlink" title="1. 跟索引相关的一些算法"></a>1. 跟索引相关的一些算法</h1><p>B+Tree 是借鉴了二分查找法、二叉查找树、平衡二叉树、B-Tree 的一些思想构建的。我们通过了解这些算法，来一层一层拨开 B+Tree 的面纱。</p>
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL 索引</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T16:00:00.000Z" title="发表于 2022-05-05 00:00:00">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-23T16:52:42.794Z" title="更新于 2023-06-24 00:52:42">2023-06-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 索引"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E7%B4%A2%E5%BC%95/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E7%B4%A2%E5%BC%95/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="1-跟索引相关的一些算法"><a href="#1-跟索引相关的一些算法" class="headerlink" title="1. 跟索引相关的一些算法"></a>1. 跟索引相关的一些算法</h1><p>B+Tree 是借鉴了二分查找法、二叉查找树、平衡二叉树、B-Tree 的一些思想构建的。我们通过了解这些算法，来一层一层拨开 B+Tree 的面纱。</p>
 <p>二分查找法</p>
 <p>二分查找法的查找过程是：将记录按顺序排列，查找时先以有序列的中点位置为比较对象，如果要找的元素值小于该中点元素，则将查询范围缩小为左半部分；如果要找的元素值大于该中点元素，则将查询范围缩小为右半部分。以此类推，直到查到需要的值。</p>
 <p>二叉查找树</p>
@@ -158,9 +158,11 @@
 <p>B-Tree 也是有缺点的，因为每个节点都包含 key 值和 data 值，因此若 data 比较大时，每一页存储的 key 会比较少；当数据比较多时，同样会：要经历多层节点才能查询在叶子节点的数据的问题。这时，B+Tree 站出来了。</p>
 <p>B+Tree</p>
 <p>B+Tree 是 B-Tree 的变体，定义基本与 B-Tree 一致，与 B-Tree 的不同如下：</p>
-<p>l 所有叶子节点中包含了全部关键字的信息</p>
-<p>l 各叶子节点使用指针进行连接</p>
-<p>l 非叶子节点上只存储 key 的信息，这样相对于 B-Tree，可以增加每一页中 key 的数量</p>
+<ul>
+<li>所有叶子节点中包含了全部关键字的信息 </li>
+<li>各叶子节点使用指针进行连接 </li>
+<li>非叶子节点上只存储 key 的信息，这样相对于 B-Tree，可以增加每一页中 key 的数量</li>
+</ul>
 <p>在 B+ Tree中，所有记录节点都是按键值的大小顺序存放在同一层的叶子节点上。B+ Tree中的 B 不是代表二叉 (binary) 而是代表平衡（balance），B+Tree并不是一个二叉树。</p>
 <p>还是根据前面提到的这组数字（1、2、3、5、6、7、9）举例，它的结构如下：</p>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wpsyawrkJ.jpg" alt="img"></p>
@@ -176,27 +178,35 @@
 <p>t8 的聚簇索引的大致结构如下：</p>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wpsG1PAC9.jpg" alt="img"></p>
 <p>两点关键信息：</p>
-<p>l 根据主键值创建了 B+Tree 结构</p>
-<p>l 每个叶子节点包含了整行数据</p>
+<ul>
+<li>根据主键值创建了 B+Tree 结构 </li>
+<li>每个叶子节点包含了整行数据</li>
+</ul>
 <p>辅助索引</p>
 <p>辅助索引的叶子节点不会存放整行数据，而是存放了键值和主键 ID。</p>
 <p>当通过辅助索引来寻找数据时，InnoDB 存储引擎会遍历辅助索引树查找到对应记录的主键，然后通过主键索引找到对应的行数据。</p>
 <p>我们继续拿 t8 分析，它的辅助索引 idx_a 结构如下：</p>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wps0Q0y1S.jpg" alt="img"></p>
 <p>两点关键信息：</p>
-<p>l 根据 a 字段的值创建了 B+Tree 结构</p>
-<p>l 每个叶子节点保存的是 a 字段自己的键值和主键 ID</p>
+<ul>
+<li>根据 a 字段的值创建了 B+Tree 结构 </li>
+<li>每个叶子节点保存的是 a 字段自己的键值和主键 ID</li>
+</ul>
 <h1 id="3-哪些情况需要添加索引？"><a href="#3-哪些情况需要添加索引？" class="headerlink" title="3. 哪些情况需要添加索引？"></a>3. 哪些情况需要添加索引？</h1><p>目前常见的添加索引的场景有：数据检索时在条件字段添加索引、聚合函数对聚合字段添加索引、对排序字段添加索引、为了防止回表添加索引、关联查询在关联字段添加索引等。</p>
 <h1 id="4-普通索引和唯一索引有哪些区别？"><a href="#4-普通索引和唯一索引有哪些区别？" class="headerlink" title="4. 普通索引和唯一索引有哪些区别？"></a>4. 普通索引和唯一索引有哪些区别？</h1><p>本节在讲普通索引和唯一索引的区别时，首先提到了 Insert Buffer，其目的是将多次插入合并。InnoDB 从 1.0.x 版本开始，开始支持增删改操作，统一称为 Change Buffer。</p>
 <p>普通索引和唯一索引的区别：</p>
-<p>l 有普通索引的字段可以写入重复的值，而有唯一索引的字段不可以写入重复的值</p>
-<p>l 数据修改时，普通索引优于唯一索引，因为普通索引可以用 Change Buffer，并且 RR 隔离级别下，出现死锁的概率比唯一索引低。</p>
-<p>l 查询数据时，两者性能差别不大。</p>
+<ul>
+<li>有普通索引的字段可以写入重复的值，而有唯一索引的字段不可以写入重复的值 </li>
+<li>数据修改时，普通索引优于唯一索引，因为普通索引可以用 Change Buffer，并且 RR 隔离级别下，出现死锁的概率比唯一索引低。 </li>
+<li>查询数据时，两者性能差别不大。</li>
+</ul>
 <h1 id="5-联合索引有哪些讲究？"><a href="#5-联合索引有哪些讲究？" class="headerlink" title="5. 联合索引有哪些讲究？"></a>5. 联合索引有哪些讲究？</h1><p>使用联合索引的情况：</p>
-<p>l 可以完整用到联合索引的情况</p>
-<p>l 只能使用部分联合索引的情况</p>
-<p>l 可以用到覆盖索引的情况</p>
-<p>l 不能使用联合索引的情况</p>
+<ul>
+<li>可以完整用到联合索引的情况 </li>
+<li>只能使用部分联合索引的情况 </li>
+<li>可以用到覆盖索引的情况 </li>
+<li>不能使用联合索引的情况</li>
+</ul>
 <p>可以结合自己的需求考虑是否通过创建联合索引代替单个字段的索引，在使用时也需要清楚联合索引的使用技巧，避免出现走不了索引的情况。</p>
 <h1 id="6-为什么-MySQL-会选错索引？"><a href="#6-为什么-MySQL-会选错索引？" class="headerlink" title="6. 为什么 MySQL 会选错索引？"></a>6. 为什么 MySQL 会选错索引？</h1><p>本节介绍了 show index 的各个字段的含义，并重点说明了 Cardinality 的取值原理。</p>
 <p>通过学习了 Cardinality 的取值原理，我们知道了它的值只是一个估值，因此当我们遇到它的值与实际值相差很大时，可以考虑使用：analyze table xxx; 重新获取统计信息。</p>

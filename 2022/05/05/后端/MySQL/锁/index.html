@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg">
 <meta property="article:published_time" content="2022-05-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-03-06T02:49:30.919Z">
+<meta property="article:modified_time" content="2023-06-23T16:50:04.599Z">
 <meta property="article:author" content="谭晓珊">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-03-06 10:49:30'
+  postUpdate: '2023-06-24 00:50:04'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -142,7 +142,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL 锁</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T16:00:00.000Z" title="发表于 2022-05-05 00:00:00">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-06T02:49:30.919Z" title="更新于 2023-03-06 10:49:30">2023-03-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 锁"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E9%94%81/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E9%94%81/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="1-全局锁和表锁什么场景会用到？"><a href="#1-全局锁和表锁什么场景会用到？" class="headerlink" title="1. 全局锁和表锁什么场景会用到？"></a>1. 全局锁和表锁什么场景会用到？</h1><p>MySQL 中，锁就是协调多个用户或者客户端并发访问某一资源的机制，保证数据并发访问时的一致性、有效性。</p>
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL 锁</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T16:00:00.000Z" title="发表于 2022-05-05 00:00:00">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-23T16:50:04.599Z" title="更新于 2023-06-24 00:50:04">2023-06-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL 锁"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E9%94%81/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E9%94%81/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="1-全局锁和表锁什么场景会用到？"><a href="#1-全局锁和表锁什么场景会用到？" class="headerlink" title="1. 全局锁和表锁什么场景会用到？"></a>1. 全局锁和表锁什么场景会用到？</h1><p>MySQL 中，锁就是协调多个用户或者客户端并发访问某一资源的机制，保证数据并发访问时的一致性、有效性。</p>
 <p>可以分为：全局锁、表锁和行锁。</p>
 <p>全局锁</p>
 <p>全局锁会关闭所有打开的锁，并使用全局读锁锁定所有表。</p>
@@ -161,8 +161,10 @@
 <li>表锁</li>
 </ol>
 <p>表锁使用场景：</p>
-<p>l 事务需要更新某张大表的大部分或全部数据。如果使用默认的行锁，不仅事务执行效率低，而且可能造成其它事务长时间锁等待和锁冲突，这种情况下可以考虑使用表锁来提高事务执行速度；</p>
-<p>l 事务涉及多个表，比较复杂，可能会引起死锁，导致大量事务回滚，可以考虑表锁避免死锁。</p>
+<ul>
+<li>事务需要更新某张大表的大部分或全部数据。如果使用默认的行锁，不仅事务执行效率低，而且可能造成其它事务长时间锁等待和锁冲突，这种情况下可以考虑使用表锁来提高事务执行速度； </li>
+<li>事务涉及多个表，比较复杂，可能会引起死锁，导致大量事务回滚，可以考虑表锁避免死锁。</li>
+</ul>
 <p>表锁有分为表读锁和表写锁，命令如下：</p>
 <p>表读锁：lock tables t14 read;</p>
 <p>表写锁：lock tables t14 write;</p>
@@ -178,16 +180,22 @@
 <p>锁操作分为两个阶段，加锁阶段和解锁阶段，并且保证加锁阶段和解锁阶段不相交。</p>
 <p>InnoDB 行锁模式</p>
 <p>InnoDB 实现了以下两种类型的行锁：</p>
-<p>l 共享锁（S）：允许一个事务去读一行，阻止其它事务获得相同数据集的排他锁；</p>
-<p>l 排他锁（X）：允许获得排他锁的事务更新数据，阻止其它事务取得相同数据集的 共享读锁和排他写锁。</p>
+<ul>
+<li>共享锁（S）：允许一个事务去读一行，阻止其它事务获得相同数据集的排他锁；</li>
+<li>排他锁（X）：允许获得排他锁的事务更新数据，阻止其它事务取得相同数据集的 共享读锁和排他写锁。</li>
+</ul>
 <p>对于普通 select 语句，InnoDB 不会加任何锁，事务可以通过以下语句显式地给记录集加共享锁或排他锁：</p>
-<p>l 共享锁（S）：select * from table_name where … lock in share mode;</p>
-<p>l 排他锁（X）：select * from table_name where … for update。</p>
+<ul>
+<li>共享锁（S）：select * from table_name where … lock in share mode; </li>
+<li>排他锁（X）：select * from table_name where … for update。</li>
+</ul>
 <p>InnoDB 行锁算法</p>
 <p>三种算法：</p>
-<p>l Record Lock：单个记录上的索引加锁。</p>
-<p>l Gap Lock：间隙锁，对索引项之间的间隙加锁，但不包括记录本身。</p>
-<p>l Next-Key Lock：Record Lock + Gap Lock，锁定一个范围，并且锁定记录本身。</p>
+<ul>
+<li>Record Lock：单个记录上的索引加锁。</li>
+<li>Gap Lock：间隙锁，对索引项之间的间隙加锁，但不包括记录本身。 </li>
+<li>Next-Key Lock：Record Lock + Gap Lock，锁定一个范围，并且锁定记录本身。</li>
+</ul>
 <p>InnoDB 行锁实现特点意味着：如果不通过索引条件检索数据，那么 InnoDB 将对表中所有记录加锁，实际效果跟表锁一样。</p>
 <p>事务隔离级别</p>
 <p>见下一专题。</p>
@@ -196,8 +204,10 @@
 <h1 id="4-为什会出现死锁？"><a href="#4-为什会出现死锁？" class="headerlink" title="4.为什会出现死锁？"></a>4.为什会出现死锁？</h1><p>认识死锁</p>
 <p>死锁是指两个或多个事务在同一个资源上相互占用，并请求锁定对方占用的资源，从而导致恶性循环的现象。</p>
 <p>InnoDB 中解决死锁问题有两种方式：</p>
-<p>l 检测到死锁的循环依赖，立即返回一个错误（这个报错内容请看下面的实验），将参数 innodb_deadlock_detect 设置为 on 表示开启这个逻辑；</p>
-<p>l 等查询的时间达到锁等待超时的设定后放弃锁请求。这个超时时间由 innodb_lock_wait_timeout 来控制。默认是 50 秒。</p>
+<ul>
+<li>检测到死锁的循环依赖，立即返回一个错误（这个报错内容请看下面的实验），将参数 innodb_deadlock_detect 设置为 on 表示开启这个逻辑；</li>
+<li>等查询的时间达到锁等待超时的设定后放弃锁请求。这个超时时间由 innodb_lock_wait_timeout 来控制。默认是 50 秒。</li>
+</ul>
 <p>为什么会产生死锁</p>
 <p>同一张表中：</p>
 <p>对于多个程序并发访问同一张表时，如果事先确保每个线程按固定顺序来处理记录，可以降低死锁的概率。</p>
@@ -208,11 +218,13 @@
 <p>类似这种情况，可以考虑将隔离级别改成 RC（这里各位读者可以尝试在 RC 隔离级 别下，做上面的实验），降低死锁的概率（当然根据上一节所讲到的，RC 隔离级别可 能会导致幻读，因此需要确定是否可以改成 RC。）</p>
 <p>如何降低死锁概率</p>
 <p>这里总结了如下一些经验：</p>
-<p>l 更新 SQL 的 where 条件尽量用索引；</p>
-<p>l 基于 primary 或 unique key 更新数据；</p>
-<p>l 减少范围更新，尤其非主键、非唯一索引上的范围更新；</p>
-<p>l 加锁顺序一致，尽可能一次性锁定所有需要行；</p>
-<p>l 将 RR 隔离级别调整为 RC 隔离级别。</p>
+<ul>
+<li>更新 SQL 的 where 条件尽量用索引； </li>
+<li>基于 primary 或 unique key 更新数据； </li>
+<li>减少范围更新，尤其非主键、非唯一索引上的范围更新； </li>
+<li>加锁顺序一致，尽可能一次性锁定所有需要行； </li>
+<li>将 RR 隔离级别调整为 RC 隔离级别。</li>
+</ul>
 <p>分析死锁的方法</p>
 <p>InnoDB 中，可以使用 SHOW ENGINE INNODB STATUS 命令来查看最后一个死锁的信息。我们可以尝试用以下这个命令获取一些死锁信息，如下：</p>
 <p>show engine innodb statusG</p>
