@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>MySQL基础 | 码农小山</title><meta name="keywords" content="MySQL"><meta name="author" content="谭晓珊,18810877074@163.com"><meta name="copyright" content="谭晓珊"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MySQL 工作原理大体来说，MySQL 分为 server 层和存储引擎层两部分。  连接器：负责跟客户端建立连接、获取权限、维持和管理连接 查询缓存：查询请求先访问缓存（key 是查询的语句，value 是查询的结果），命中 则直接返回；不推荐使用缓存，更新会把缓存清除（关闭缓存，参数 query_cache_type 设置为 demand） 分析器：对 SQL 语句做解析，判断SQL是否正确">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>MySQL基础 | 码农小山</title><meta name="keywords" content="MySQL"><meta name="author" content="谭晓珊,18810877074@163.com"><meta name="copyright" content="谭晓珊"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="MySQL 工作原理大体来说，MySQL 分为: server层和存储引擎层两部分。  连接器：负责跟客户端建立连接、获取权限、维持和管理连接 查询缓存：查询请求先访问缓存（key 是查询的语句，value 是查询的结果），命中则直接返回；不推荐使用缓存，更新会把缓存清除（关闭缓存，参数 query_cache_type 设置为 demand） 分析器：对 SQL 语句做解析，判断SQL是否正确">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL基础">
 <meta property="og:url" content="http://blog.shershon.top/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/index.html">
 <meta property="og:site_name" content="码农小山">
-<meta property="og:description" content="MySQL 工作原理大体来说，MySQL 分为 server 层和存储引擎层两部分。  连接器：负责跟客户端建立连接、获取权限、维持和管理连接 查询缓存：查询请求先访问缓存（key 是查询的语句，value 是查询的结果），命中 则直接返回；不推荐使用缓存，更新会把缓存清除（关闭缓存，参数 query_cache_type 设置为 demand） 分析器：对 SQL 语句做解析，判断SQL是否正确">
+<meta property="og:description" content="MySQL 工作原理大体来说，MySQL 分为: server层和存储引擎层两部分。  连接器：负责跟客户端建立连接、获取权限、维持和管理连接 查询缓存：查询请求先访问缓存（key 是查询的语句，value 是查询的结果），命中则直接返回；不推荐使用缓存，更新会把缓存清除（关闭缓存，参数 query_cache_type 设置为 demand） 分析器：对 SQL 语句做解析，判断SQL是否正确">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg">
 <meta property="article:published_time" content="2022-05-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-06-23T16:59:04.653Z">
+<meta property="article:modified_time" content="2023-06-25T05:05:10.121Z">
 <meta property="article:author" content="谭晓珊">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
@@ -53,7 +53,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2023-06-24 00:59:04'
+  postUpdate: '2023-06-25 13:05:10'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -142,87 +142,84 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T16:00:00.000Z" title="发表于 2022-05-05 00:00:00">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-23T16:59:04.653Z" title="更新于 2023-06-24 00:59:04">2023-06-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="MySQL-工作原理"><a href="#MySQL-工作原理" class="headerlink" title="MySQL 工作原理"></a>MySQL 工作原理</h1><p>大体来说，MySQL 分为 server 层和存储引擎层两部分。</p>
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL基础</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-04T16:00:00.000Z" title="发表于 2022-05-05 00:00:00">2022-05-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-25T05:05:10.121Z" title="更新于 2023-06-25 13:05:10">2023-06-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL基础"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="MySQL-工作原理"><a href="#MySQL-工作原理" class="headerlink" title="MySQL 工作原理"></a>MySQL 工作原理</h1><p>大体来说，<code>MySQL</code> 分为: <code>server</code>层和存储引擎层两部分。</p>
 <p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wpsAC69HC.jpg" alt="img"></p>
 <p>连接器：负责跟客户端建立连接、获取权限、维持和管理连接</p>
-<p>查询缓存：查询请求先访问缓存（key 是查询的语句，value 是查询的结果），命中 则直接返回；不推荐使用缓存，更新会把缓存清除（关闭缓存，参数 query_cache_type 设置为 demand）</p>
-<p>分析器：对 SQL 语句做解析，判断SQL是否正确</p>
-<p>优化器：确定使用哪个索引，多表关联（join）的时候，决定各个表的连接顺序</p>
+<p>查询缓存：查询请求先访问缓存（<code>key</code> 是查询的语句，<code>value</code> 是查询的结果），命中则直接返回；不推荐使用缓存，更新会把缓存清除（关闭缓存，参数 <code>query_cache_type</code> 设置为 <code>demand</code>）</p>
+<p>分析器：对 <code>SQL</code> 语句做解析，判断<code>SQL</code>是否正确</p>
+<p>优化器：确定使用哪个索引，多表关联（<code>join</code>）的时候，决定各个表的连接顺序</p>
 <p>执行器：执行语句，先判断用户有无查询权限，使用表定义的存储引擎</p>
-<h1 id="SQL语言-x2F-锁-x2F-事物及隔离级别"><a href="#SQL语言-x2F-锁-x2F-事物及隔离级别" class="headerlink" title="SQL语言&#x2F;锁&#x2F;事物及隔离级别"></a>SQL语言&#x2F;锁&#x2F;事物及隔离级别</h1><p>SQL 是结构化查询语句（Structured Query Language）的缩写，其功能包括数据查询语句、数据操纵语句（Data Manipulation Language, DML）、数据定义语句（Data Definition<br>Language, DDL）和数据控制语句（Data Control Language, DCL）四个部分。</p>
-<h2 id="1-SQL-语言的功能"><a href="#1-SQL-语言的功能" class="headerlink" title="1.SQL 语言的功能"></a>1.SQL 语言的功能</h2><p>数据查询</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select *</span><br><span class="line">from table</span><br><span class="line">where 条件语句</span><br></pre></td></tr></table></figure>
+<h1 id="SQL语言-x2F-锁-x2F-事物及隔离级别"><a href="#SQL语言-x2F-锁-x2F-事物及隔离级别" class="headerlink" title="SQL语言&#x2F;锁&#x2F;事物及隔离级别"></a>SQL语言&#x2F;锁&#x2F;事物及隔离级别</h1><p><code>SQL</code> 是结构化查询语句（<code>Structured Query Language</code>）的缩写，其功能包括:</p>
+<ul>
+<li>数据查询语句</li>
+<li>数据操纵语句（<code>Data Manipulation Language, DML</code>）</li>
+<li>数据定义语句（<code>Data Definition Language, DDL</code>）</li>
+<li>数据控制语句（<code>Data Control Language, DCL</code>）</li>
+</ul>
+<h2 id="1-SQL-语言的功能"><a href="#1-SQL-语言的功能" class="headerlink" title="1.SQL 语言的功能"></a>1.SQL 语言的功能</h2><h3 id="1-1-数据查询"><a href="#1-1-数据查询" class="headerlink" title="1.1 数据查询"></a>1.1 数据查询</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from table where 条件语句</span><br></pre></td></tr></table></figure>
 
-<p>数据操纵语句(DML)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a. insert into table(字段 1, 字段 2, .</span><br><span class="line">.., 字段 n) values(值1, 值2, .</span><br><span class="line">.., 值 n)</span><br><span class="line"></span><br><span class="line">b. delete from table where 条件语句</span><br><span class="line"></span><br><span class="line">c. update table</span><br><span class="line">set 字段 1 = 值 1, 字段 2=值 2,..., 字段 n=值 n where 条件语句</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-数据操纵语句-DML"><a href="#1-2-数据操纵语句-DML" class="headerlink" title="1.2 数据操纵语句(DML)"></a>1.2 数据操纵语句(DML)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a. insert into table(字段 1, 字段 2, ..., 字段 n) values(值1, 值2, ..., 值 n)</span><br><span class="line"></span><br><span class="line">b. delete from table where 条件语句</span><br><span class="line"></span><br><span class="line">c. update table set 字段 1 = 值 1, 字段 2=值 2,..., 字段 n=值 n where 条件语句</span><br></pre></td></tr></table></figure>
 
-<p>数据定义语句(DDL)</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a. create table table_name(字段 1, 字段 2, .</span><br><span class="line">.., 字段 n)</span><br><span class="line"></span><br><span class="line">b. drop table table_name</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-数据定义语句-DDL"><a href="#1-3-数据定义语句-DDL" class="headerlink" title="1.3 数据定义语句(DDL)"></a>1.3 数据定义语句(DDL)</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a. create table table_name(字段 1, 字段 2, ..., 字段 n)</span><br><span class="line"></span><br><span class="line">b. drop table table_name</span><br><span class="line"></span><br><span class="line">c. alter table table_name add/modify column 字段1 字段1定义</span><br></pre></td></tr></table></figure>
 
-<p>DCL</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a. grant 权限 on 数据库.数据表 to 用户名@登录主机 identified by &quot;密码&quot; [with</span><br><span class="line">grant option]</span><br><span class="line"></span><br><span class="line">b. revoke 权限 on 数据库.数据表 from 用户名@登录主机</span><br><span class="line"></span><br><span class="line">c. show grants for 用户名@登录主机</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-DCL"><a href="#1-4-DCL" class="headerlink" title="1.4 DCL"></a>1.4 DCL</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a. grant 权限 on 数据库.数据表 to 用户名@登录主机 identified by &quot;密码&quot; [with grant option]</span><br><span class="line"></span><br><span class="line">b. revoke 权限 on 数据库.数据表 from 用户名@登录主机</span><br><span class="line"></span><br><span class="line">c. show grants for 用户名@登录主机</span><br></pre></td></tr></table></figure>
 
-<p>insert 插入数据</p>
-<p>第一种：</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into tbl_name[(col1, col2, ...)] &#123;</span><br><span class="line">values | value&#125;(val1, val2, ...)[, (val21, val22, ...), ...]</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-insert-插入数据"><a href="#1-5-insert-插入数据" class="headerlink" title="1.5 insert 插入数据"></a>1.5 insert 插入数据</h3><p>第一种：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into tbl_name[(col1, col2, ...)] &#123;values | value&#125;(val1, val2, ...)[, (val21, val22, ...), ...]</span><br></pre></td></tr></table></figure>
 
 <p>第二种：</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">insert into tbl_name</span><br><span class="line">set col1=val1,</span><br><span class="line">    col2=val2, ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into tbl_name set col1=val1, col2=val2, ...</span><br></pre></td></tr></table></figure>
 
 <p>第三种(将一个表中的数据插入到另外一张表中)：</p>
-  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">insert into tbl_name</span><br><span class="line">select clause</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into tbl_name select clause</span><br></pre></td></tr></table></figure>
 
-<p>replace 替换表中数据，用法同 insert，除了在新插入的数据与表中的主键或唯一索引定义的数据相同会替换老的行</p>
-<p>update 更新数据</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">update [LOW_PRIORITY] [IGNORE] tbl_name</span><br><span class="line"></span><br><span class="line">set col1 = val1[, col2 = val2] ...</span><br><span class="line"></span><br><span class="line">  [where condition]</span><br><span class="line"></span><br><span class="line">  [order by ...]</span><br><span class="line"></span><br><span class="line">  [limit row_count]</span><br></pre></td></tr></table></figure>
+<p><code>replace</code> 替换表中数据，用法同 <code>insert</code>，除了在新插入的数据与表中的主键或唯一索引定义的数据相同会替换老的行</p>
+<h3 id="1-6-update-更新数据"><a href="#1-6-update-更新数据" class="headerlink" title="1.6 update 更新数据"></a>1.6 update 更新数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">update [LOW_PRIORITY] [IGNORE] tbl_name</span><br><span class="line">set col1 = val1[, col2 = val2] ...</span><br><span class="line">[where condition]</span><br><span class="line">[order by ...]</span><br><span class="line">[limit row_count]</span><br></pre></td></tr></table></figure>
 
-<p>update 通常情况下，必须要使用 where 字句，或者使用 limit 限制要修改的行数</p>
-<p>–safe-updates：启动时应该带选项</p>
-<p>delete：删除数据</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">delete [LOW_PRIORITY] [QUICK] [IGNORE]</span><br><span class="line">from tbl_name</span><br><span class="line"></span><br><span class="line">    [</span><br><span class="line">where condition]</span><br><span class="line"></span><br><span class="line">    [</span><br><span class="line">order by...]</span><br><span class="line"></span><br><span class="line"> [</span><br><span class="line">limit row_count]</span><br></pre></td></tr></table></figure>
+<p><code>update</code> 通常情况下，必须要使用 <code>where</code> 字句，或者使用 <code>limit</code> 限制要修改的行数</p>
+<p><code>--safe-updates</code>：启动时应该带选项</p>
+<h3 id="1-7-delete：删除数据"><a href="#1-7-delete：删除数据" class="headerlink" title="1.7 delete：删除数据"></a>1.7 delete：删除数据</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">delete [LOW_PRIORITY] [QUICK] [IGNORE]</span><br><span class="line">from tbl_name  </span><br><span class="line">[where condition]</span><br><span class="line">[order by...]</span><br><span class="line">[limit row_count]</span><br></pre></td></tr></table></figure>
 
-<p>truncate tbl_name 重置表的所有内容</p>
+<p><code>truncate tbl_name</code> 重置表的所有内容</p>
+<blockquote>
 <p>引申：delete 和 truncate 命令有哪些区别？</p>
-<p>相同点：都可以用来删除一个表中的数据</p>
+</blockquote>
+<p>相同点：</p>
+<ul>
+<li>都可以用来删除一个表中的数据</li>
+</ul>
 <p>不同点：</p>
-<ol>
-<li><p>truncate 是一个 DDL，它会被隐式地提交，一旦被提交后将不能回滚。delete 执行的过程是每次从表中删除一行数据，同时将删除的操作以日志的形式进行保存以便以后进行回滚操作</p>
-</li>
-<li><p>使用 delete 操作后，被删除的数据占用的存储空间还在，还可以恢复。而使用 truncate 操作后，被删除的数据会立即释放占用的存储空间，被删除的数据是不能被恢复的</p>
-</li>
-<li><p>truncate 执行的速度比delete快</p>
-</li>
-</ol>
-<p>其他术语</p>
-<p>连接池：与用户请求建立连接</p>
-<p>核心功能层： 查询解析，分析，优化，内置函数 跨存储引擎的功能</p>
+<ul>
+<li><code>truncate</code> 是一个 <code>DDL</code>，它会被隐式地提交，一旦被提交后将不能回滚。<code>delete</code> 执行的过程是每次从表中删除一行数据，同时将删除的操作以日志的形式进行保存以便以后进行回滚操作 </li>
+<li>使用 <code>delete</code> 操作后，被删除的数据占用的存储空间还在，还可以恢复。而使用 <code>truncate</code> 操作后，被删除的数据会立即释放占用的存储空间，被删除的数据是不能被恢复的 </li>
+<li><code>truncate</code> 执行的速度比<code>delete</code>快</li>
+</ul>
+<h3 id="1-8-其他术语"><a href="#1-8-其他术语" class="headerlink" title="1.8 其他术语"></a>1.8 其他术语</h3><p>连接池：与用户请求建立连接</p>
+<p>核心功能层： 查询解析、分析、优化、内置函数、跨存储引擎的功能</p>
 <p>存储引擎层： 数据的写入和读取</p>
-<p>协议：文本或者二进制，二进制的协议高效一些，MySQL 的发送默认为明文，可以 使用 ssl 加密数据</p>
-<p>parser 的功能：词法，语法，语意分析，优化</p>
-<p>explain：分析工具</p>
-<p>query cache：缓存，只保存 select 查询</p>
+<p>协议：文本或者二进制，二进制的协议高效一些，<code>MySQL</code> 的发送默认为明文，可以 使用 <code>ssl</code> 加密数据</p>
+<p><code>parser</code> 的功能：词法，语法，语意分析，优化</p>
+<p><code>explain</code>：分析工具</p>
+<p><code>query cache</code>：查询缓存，只保存 <code>select</code> 查询</p>
 <p>并发访问控制：基于锁来实现</p>
 <h2 id="2-MySQL-锁"><a href="#2-MySQL-锁" class="headerlink" title="2.MySQL 锁"></a>2.MySQL 锁</h2><p>MySQL 锁可以分为读锁（别人可以读，不可以写，也称为共享锁）、写锁（别人不可以读，也不可以写，也称为独占锁&#x2F;排它锁）</p>
-<p>锁粒度</p>
-<p>表锁：table lock 锁定了整张表</p>
-<p>行锁：row lock 锁定了需要的行</p>
+<h3 id="2-1-锁粒度"><a href="#2-1-锁粒度" class="headerlink" title="2.1 锁粒度"></a>2.1 锁粒度</h3><p>表锁：<code>table lock</code> 锁定了整张表</p>
+<p>行锁：<code>row lock</code> 锁定了需要的行</p>
 <p>粒度越小，开销越大，但是并发性越好。</p>
-<p>锁的实现位置</p>
-<p>MySQL 锁：可以手动设置（显式锁）</p>
+<h3 id="2-2-锁的实现位置"><a href="#2-2-锁的实现位置" class="headerlink" title="2.2 锁的实现位置"></a>2.2 锁的实现位置</h3><p><code>MySQL</code> 锁：可以手动设置（显式锁）</p>
 <p>存储引擎锁：自动进行（隐式锁）</p>
 <p>显式锁（表级锁）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LOCK</span><br><span class="line">TABLE/UNLOCK</span><br><span class="line">TABLE</span><br><span class="line"></span><br><span class="line">LOCK</span><br><span class="line">TABLE</span><br><span class="line"></span><br><span class="line">tbl_name lock_type</span><br><span class="line"></span><br><span class="line">[, tbl_name lock_type] .</span><br><span class="line">..</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LOCK/UNLOCK TABLE</span><br><span class="line"></span><br><span class="line">LOCK TABLE tbl_name lock_type[, tbl_name lock_type] ...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><code>lock_type</code>(锁类型)：<code>READ</code>|<code>WRITE</code></p>
+<p><code>InnoDB</code> 存储引擎也支持另外一种显式锁（锁定挑选出的部分行，行级锁）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT... LOCK IN SHARE MODE</span><br><span class="line"></span><br><span class="line">SELECT... FOR UPDATE</span><br></pre></td></tr></table></figure>
 
-<p>lock_type(锁类型)：READ|WRITE</p>
-<p>InnoDB 存储引擎也支持另外一种显式锁（锁定挑选出的部分行，行级锁）：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SELECT... LOCK IN SHARE MODE</span><br><span class="line"></span><br><span class="line">SELECT... FOR</span><br><span class="line">UPDATE</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-事物（transaction）"><a href="#3-事物（transaction）" class="headerlink" title="3.事物（transaction）"></a>3.事物（transaction）</h2><p>事务就是一组原子性的 SQL 查询，或者说一个独立的工作单元。</p>
-<p>ACID 测试：能满足 ACID 测试就是表示其支持事物或者兼容事物。</p>
-<p>A：Atomicity，原子性：一个事物必须被视为一个独立的工作单元，所有语句要 么都执行，要么都不执行</p>
-<p>C：Consistency，一致性：数据库总是从一个一致性状态转移为另一个一致性状 态，而不会导致数据损失</p>
-<p>I：Isolation，隔离性：一个事物所做的操作在提交之前对其他事物是不可见的</p>
-<p>D：Durability，持久性：一旦事物得到提交，其所做的修改会永久有效</p>
+<h2 id="3-事物（transaction）"><a href="#3-事物（transaction）" class="headerlink" title="3.事物（transaction）"></a>3.事物（transaction）</h2><p>事务就是一组原子性的 <code>SQL</code> 查询，或者说一个独立的工作单元。</p>
+<p><code>ACID</code> 测试：能满足 <code>ACID</code> 测试就是表示其支持事物或者兼容事物。</p>
+<p><code>A：Atomicity</code>，原子性：一个事物必须被视为一个独立的工作单元，所有语句要 么都执行，要么都不执行</p>
+<p><code>C：Consistency</code>，一致性：数据库总是从一个一致性状态转移为另一个一致性状 态，而不会导致数据损失</p>
+<p><code>I：Isolation</code>，隔离性：一个事物所做的操作在提交之前对其他事物是不可见的</p>
+<p><code>D：Durability</code>，持久性：一旦事物得到提交，其所做的修改会永久有效</p>
 <h2 id="4-隔离级别"><a href="#4-隔离级别" class="headerlink" title="4.隔离级别"></a>4.隔离级别</h2><table>
 <thead>
 <tr>
@@ -251,7 +248,7 @@
 <td>是</td>
 </tr>
 <tr>
-<td>SERIALIZABLE（可串行化）</td>
+<td>SERIALIZABLE（串行化）</td>
 <td>否</td>
 <td>否</td>
 <td>否</td>
@@ -260,234 +257,177 @@
 <p>启动事物：<code>START TRANSACTION</code></p>
 <p>事物提交：<code>COMMIT</code></p>
 <p>事物回滚：<code>ROLLBACK</code></p>
-<p>savepoint 控制回滚的位置</p>
+<p><code>savepoint</code> 控制回滚的位置</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SAVEPOINT identifier</span><br><span class="line"></span><br><span class="line">ROLLBACK [WORK] TO [SAVEPOINT] identifier</span><br></pre></td></tr></table></figure>
 
 <p>注意：如果没有显式地启动事物，每条语句都会被当做一个独立的事物，其执行完成之后会自动提交。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT @@global.autocommit;</span><br><span class="line"></span><br><span class="line">SET GLOBAL autocommit = 0;</span><br></pre></td></tr></table></figure>
 
-<p>查看 MySQL 的事物隔离级别</p>
+<p>查看 <code>MySQL</code> 的事物隔离级别</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SHOW GLOBAL VARIABLES LIKE &#x27;tx_isolation&#x27;;</span><br><span class="line"></span><br><span class="line">SELECT @@global.tx_isolation;</span><br><span class="line"></span><br><span class="line">SET GLOBAL tx_isolation = &#x27;READ_UNCOMMITTED&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p>建议：对事物要求不特别严格的场景下，可以使用读已提交。</p>
-<p>MVCC：Multi-Version Concurrency Control，多版本并发控制</p>
-<p>每个事物启动时，InnoDB 会为每个启动的事物提供一个当下时刻的快照，为了实现此功能，InnoDB 会为每个表提供两个隐藏的字段，一个用于保存行的创建时间，一个用于保存行的失效时间，里面存储的是系统版本号（system version<br>number），只在两个隔离级别下有效：RC、RR</p>
+<p>建议：对事物要求不是特别严格的场景下，可以使用读已提交。</p>
+<p><code>MVCC</code>：<code>Multi-Version Concurrency Control</code>，多版本并发控制</p>
+<p>每个事物启动时，<code>InnoDB</code> 会为每个启动的事物提供一个当下时刻的快照，为了实现此功能，<code>InnoDB</code> 会为每个表提供两个隐藏的字段，一个用于保存行的创建时间，一个用于保存行的失效时间，里面存储的是系统版本号（<code>system version number</code>），只在两个隔离级别下有效：<code>RC</code>、<code>RR</code></p>
 <h1 id="MySQL-存储引擎对比"><a href="#MySQL-存储引擎对比" class="headerlink" title="MySQL 存储引擎对比"></a>MySQL 存储引擎对比</h1><p>存储引擎通常被称为“表类型”</p>
-<p>MySQL &gt; show engines;</p>
-<p>MySQL &gt; show table status;</p>
-<p>SHOW TABLE STATUS [{FROM | IN} db_name]</p>
-<p>[LIKE ‘pattern’ | where expr]</p>
-<p>MySQL &gt; show table status in hellodb where name&#x3D;’class’G</p>
-<p>Name： 表名</p>
-<p>Engine： 存储引擎</p>
-<p>Version：版本</p>
-<p>Row_format：行格式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show engines;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">table</span> status;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">TABLE</span> STATUS [&#123;<span class="keyword">FROM</span> <span class="operator">|</span> <span class="keyword">IN</span>&#125; db_name] [<span class="keyword">LIKE</span> <span class="string">&#x27;pattern&#x27;</span> <span class="operator">|</span> <span class="keyword">where</span> expr]</span><br><span class="line"></span><br><span class="line"><span class="keyword">show</span> <span class="keyword">table</span> status <span class="keyword">in</span> hellodb <span class="keyword">where</span> name<span class="operator">=</span>&quot;class&quot;</span><br></pre></td></tr></table></figure>
+
+<p>Name： 表名<br>Engine： 存储引擎<br>Version：版本<br>Row_format：行格式</p>
 <p>{DEFAULT|DYNAMIC|FIXED|COMMPRESSED|REDUNDANT|COMPACT}</p>
-<p>Rows：表中的行数</p>
-<p>Avg_row_length：平均每行包含的字节数</p>
-<p>Data_length：表中数据总体大小，单位为字节</p>
-<p>Max_data_length：表能够占用的最大空间，单位为字节，0 表示没有上限</p>
-<p>Index_length：索引的大小，单位为字节</p>
-<p>Data_free：对于 MyISAM 表，表示已经分配但尚未使用的空间，其中包含此前删除 行之后腾出来的空间</p>
-<p>Auto_increment：下一个 AUTO_INCREMENT 的值</p>
-<p>Create_time：表的创建时间</p>
-<p>Update_time：表数据的最后一次修改时间</p>
-<p>Check_time：使用 CHECK TABLE 或 myisamchk 最近一次检查表的时间</p>
-<p>Collation：排序规则</p>
-<p>Checksum：如果启动，则为表的 checksum</p>
-<p>Create_options：创建表时指定使用的其他选项</p>
-<p>Comment：表的注释信息</p>
+<p>Rows：表中的行数<br>Avg_row_length：平均每行包含的字节数<br>Data_length：表中数据总体大小，单位为字节<br>Max_data_length：表能够占用的最大空间，单位为字节，0 表示没有上限<br>Index_length：索引的大小，单位为字节<br>Data_free：对于 MyISAM 表，表示已经分配但尚未使用的空间，其中包含此前删除行之后腾出来的空间<br>Auto_increment：下一个 AUTO_INCREMENT 的值<br>Create_time：表的创建时间<br>Update_time：表数据的最后一次修改时间<br>Check_time：使用 CHECK TABLE 或 myisamchk 最近一次检查表的时间<br>Collation：排序规则<br>Checksum：如果启动，则为表的 checksum<br>Create_options：创建表时指定使用的其他选项<br>Comment：表的注释信息</p>
 <h2 id="1-InnoDB"><a href="#1-InnoDB" class="headerlink" title="1.InnoDB"></a>1.InnoDB</h2><p>两种格式：</p>
 <ol>
-<li>Innodb_file_per_table&#x3D;OFF，即使用共享表空间</li>
+<li><code>Innodb_file_per_table=OFF</code>，即使用共享表空间</li>
 </ol>
-<p>每个表有一个独有的格式定义文件：tbl_name.frm</p>
-<p>还有一个默认位于数据目录下的共享的表空间文件：ibdata#</p>
+<p>每个表有一个独有的格式定义文件：<code>tbl_name.frm</code></p>
+<p>还有一个默认位于数据目录下的共享的表空间文件：<code>ibdata#</code></p>
 <ol start="2">
-<li>Innodb_file_per_table&#x3D;ON，即使用独立表空间</li>
+<li><code>Innodb_file_per_table=ON</code>，即使用独立表空间</li>
 </ol>
 <p>每个表在数据库目录下存储两个文件：</p>
-<p>tbl_name.frm</p>
-<p>tbl_name.ibd</p>
+<p><code>tbl_name.frm</code>、<code>tbl_name.ibd</code></p>
 <h2 id="2-MyISAM"><a href="#2-MyISAM" class="headerlink" title="2.MyISAM"></a>2.MyISAM</h2><p>每个表在数据库目录下存储三个文件：</p>
-<p>tbl_name.frm</p>
-<p>tbl_name.MYD</p>
-<p>tbl_name.MYI</p>
-<h2 id="3-表空间"><a href="#3-表空间" class="headerlink" title="3.表空间"></a>3.表空间</h2><p>Table space，由 InnoDB 管理的特有的格式数据文件，内部可同时存储数据和索引</p>
-<h2 id="4-各存储引擎的特性"><a href="#4-各存储引擎的特性" class="headerlink" title="4.各存储引擎的特性"></a>4.各存储引擎的特性</h2><p>如何修改默认的存储引擎，通过 default_storage_engine 服务变量来实现</p>
+<p><code>tbl_name.frm</code>、<code>tbl_name.MYD</code>、<code>tbl_name.MYI</code></p>
+<h2 id="3-表空间"><a href="#3-表空间" class="headerlink" title="3.表空间"></a>3.表空间</h2><p><code>Table space</code>，由 <code>InnoDB</code> 管理的特有的格式数据文件，内部可同时存储数据和索引</p>
+<h2 id="4-各存储引擎的特性"><a href="#4-各存储引擎的特性" class="headerlink" title="4.各存储引擎的特性"></a>4.各存储引擎的特性</h2><p>如何修改默认的存储引擎，通过 <code>default_storage_engine</code> 服务变量来实现</p>
 <ol>
-<li>InnoDB</li>
+<li><code>InnoDB</code></li>
 </ol>
-<p>a. 支持事物，有事物日志 ib_logfile0, ib_logfile1</p>
-<p>b. 支持外键约束</p>
-<p>c. 支持 MVCC</p>
-<p>d. 支持聚簇索引（聚簇索引之外的索引，通常称之为辅助索引）</p>
-<p>e. 行级锁：间隙锁</p>
-<p>f. 支持使用辅助索引</p>
-<p>g. 支持自使用 hash 索引</p>
-<p>h. 支持热备份</p>
+<p>a. 支持事物，有事物日志 <code>ib_logfile0</code>, <code>ib_logfile1</code><br>b. 支持外键约束<br>c. 支持 <code>MVCC</code><br>d. 支持聚簇索引<br>e. 行级锁：间隙锁<br>f. 支持使用辅助索引<br>g. 支持自使用 <code>hash</code> 索引<br>h. 支持热备份</p>
 <ol start="2">
-<li>MyISAM</li>
+<li><code>MyISAM</code></li>
 </ol>
 <p>a. 优点</p>
-<p>i. 全文索引</p>
-<p>ii. 支持表压缩存放：做数据仓库，能节约存储空间并提升性能</p>
-<p>iii. 支持空间索引</p>
-<p>iv. 表级锁</p>
-<p>v. 延迟更新索引</p>
+<p>i. 全文索引<br>ii. 支持表压缩存放：做数据仓库，能节约存储空间并提升性能<br>iii. 支持空间索引<br>iv. 表级锁<br>v. 延迟更新索引</p>
 <p>b. 缺点</p>
-<p>i. 不支持事物、外键和行级锁</p>
-<p>ii. 崩溃后无法安全恢复数据</p>
+<p>i. 不支持事物、外键和行级锁<br>ii. 崩溃后无法安全恢复数据</p>
 <p>c. 使用场景：只读数据，表较小，能够忍受崩溃后的修复操作和数据丢失</p>
 <ol start="3">
-<li>ARCHIVE</li>
+<li><code>ARCHIVE</code></li>
 </ol>
-<p>a. 仅支持 INSERT 和 SELECT，支持很好的压缩功能</p>
-<p>b. 应用于存储日志信息，或其他按照时间序列实现的数据采集类的应用</p>
+<p>a. 仅支持 <code>INSERT</code> 和 <code>SELECT</code>，支持很好的压缩功能<br>b. 应用于存储日志信息，或其他按照时间序列实现的数据采集类的应用</p>
 <ol start="4">
-<li>CSV</li>
+<li><code>CSV</code></li>
 </ol>
-<p>a. 将数据存储为 CSV 格式，不支持索引，仅使用于与数据交换的场景</p>
+<p>a. 将数据存储为 <code>CSV</code> 格式，不支持索引，仅使用于与数据交换的场景</p>
 <ol start="5">
-<li>BLACKHOLE</li>
+<li><code>BLACKHOLE</code></li>
 </ol>
 <p>a. 没有存储机制，任何发往此引擎的数据都会丢弃，其会记录二进制日志，因此，常用于多级复制架构中作中转服务器</p>
 <ol start="6">
-<li>MEMORY</li>
+<li><code>MEMORY</code></li>
 </ol>
 <p>a. 保存数据在内存中，内存表；常用于保存中间数据，如周期性的聚合数据等，也用于实现临时表</p>
-<p>b. 支持 hash 索引，使用表级锁，不支持 BLOB 和 TEXT 数据类型</p>
+<p>b. 支持 <code>hash</code> 索引，使用表级锁，不支持 <code>BLOB</code> 和 <code>TEXT</code> 数据类型</p>
 <ol start="7">
-<li>MRG_MYISAM</li>
+<li><code>MRG_MYISAM</code></li>
 </ol>
-<p>a. 是 MYISAM 的一个变种，能够将多个 MyISAM 表合并成一个虚表</p>
+<p>a. 是 <code>MYISAM</code> 的一个变种，能够将多个 <code>MyISAM</code> 表合并成一个虚表</p>
 <ol start="8">
-<li>NDB</li>
+<li><code>NDB</code></li>
 </ol>
-<p>a. 是 MySQL CLUSTER 中专用的存储引擎</p>
+<p>a. 是 <code>MySQL CLUSTER</code> 中专用的存储引擎</p>
 <ol start="9">
 <li>第三方的存储引擎</li>
 </ol>
 <p>OLPT：</p>
-<p>XtraDB：增强的 InnoDB，有 Percona 提供</p>
-<p>​ 编译安装时，下载 XtraDB 的源码替代 MySQL 存储引擎中的 InnoDB 的 源码</p>
-<p>PBXT：MariaDB 自带此存储引擎</p>
-<p>​ 支持引擎级别的复制、外键约束，对 SSD 磁盘提供适当支持</p>
-<p>​ 支持事务、MVCC</p>
-<p>TokuDB：使用 Fractal Trees 索引，适用存储大数据，拥有很好的压缩比，已 经被引入 MariaDB</p>
+<p>XtraDB：增强的 InnoDB，有 Percona 提供。编译安装时，下载 XtraDB 的源码替代 MySQL 存储引擎中的 InnoDB 的源码</p>
+<p>PBXT：MariaDB 自带此存储引擎。</p>
+<ul>
+<li>支持引擎级别的复制、外键约束，对 SSD 磁盘提供适当支持</li>
+<li>支持事务、MVCC</li>
+</ul>
+<p>TokuDB：使用 Fractal Trees 索引，适用存储大数据，拥有很好的压缩比，已经被引入 MariaDB</p>
 <p>列式数据存储引擎：</p>
-<p>Infobright：目前较有名的列式引擎，适用于海量数据存储场景，如 PB 级别， 专为数据分析和数据仓库设计</p>
+<p>Infobright：目前较有名的列式引擎，适用于海量数据存储场景，如 PB 级别，专为数据分析和数据仓库设计</p>
 <p>InfiniDB</p>
 <p>MonetDB</p>
 <p>LucidDB</p>
 <p>开源社区存储引擎：</p>
-<p>Aria：前身为 Maria，是增强版的 MyISAM（支持崩溃后安全恢复，支持数据 缓存）</p>
+<p>Aria：前身为 Maria，是增强版的 MyISAM（支持崩溃后安全恢复，支持数据缓存）</p>
 <p>Groona：全文索引引擎</p>
 <p>Mroonga：是基于 Groona 的二次开发版</p>
 <p>OQGraph：由 open query 研发，支持图（网状 ）结构的存储引擎</p>
 <p>SphinxSE：为 Sphinx 全文搜索服务器提供了 SQL 接口</p>
-<p>Spider：能将数据切分成不同的分片，比较高效透明的实现了分片 （shared），并支持在分片上支持并行查询</p>
+<p>Spider：能将数据切分成不同的分片，比较高效透明的实现了分片（shared），并支持在分片上支持并行查询</p>
 <p>如何选择存储引擎？</p>
 <ul>
-<li><p>是否需要事务</p>
-</li>
-<li><p>备份的类型的支持</p>
-</li>
-<li><p>崩溃后的恢复</p>
-</li>
-<li><p>特有的特性</p>
-</li>
+<li>是否需要事务</li>
+<li>备份的类型的支持</li>
+<li>崩溃后的恢复</li>
+<li>特有的特性</li>
 </ul>
-<h2 id="5-索引类型"><a href="#5-索引类型" class="headerlink" title="5.索引类型"></a>5.索引类型</h2><p>聚簇索引</p>
-<p>辅助索引</p>
-<p>B-Tree 索引</p>
-<p>R-Tree 索引</p>
-<p>Hash 索引</p>
-<p>全文索引</p>
-<h1 id="MySQL-用户管理"><a href="#MySQL-用户管理" class="headerlink" title="MySQL 用户管理"></a>MySQL 用户管理</h1><p>用户账号：username@hostname</p>
-<p>用户账号管理：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Create user</span><br><span class="line">    CREATE USER username@hostname [IDENTIFIED BY 	‘PASSWORD’]</span><br><span class="line"></span><br><span class="line">Drop user</span><br><span class="line">    Rename user</span><br><span class="line"></span><br><span class="line">Set password</span><br></pre></td></tr></table></figure>
+<h2 id="5-索引类型"><a href="#5-索引类型" class="headerlink" title="5.索引类型"></a>5.索引类型</h2><ul>
+<li>聚簇索引</li>
+<li>辅助索引</li>
+<li>B-Tree 索引</li>
+<li>R-Tree 索引</li>
+<li>Hash 索引</li>
+<li>全文索引</li>
+</ul>
+<h1 id="MySQL-用户管理"><a href="#MySQL-用户管理" class="headerlink" title="MySQL 用户管理"></a>MySQL 用户管理</h1><p>用户账号：<code>username@hostname</code></p>
+<h2 id="1-用户账号管理"><a href="#1-用户账号管理" class="headerlink" title="1.用户账号管理"></a>1.用户账号管理</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Create user:</span><br><span class="line">    CREATE USER username@hostname [IDENTIFIED BY &quot;PASSWORD&quot;]</span><br><span class="line"></span><br><span class="line">Drop user:</span><br><span class="line">    RENAME user</span><br><span class="line"></span><br><span class="line">Set password</span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
 
-<p>权限管理：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Grant</span><br><span class="line"></span><br><span class="line">Revoke</span><br></pre></td></tr></table></figure>
+<h2 id="2-权限管理"><a href="#2-权限管理" class="headerlink" title="2.权限管理"></a>2.权限管理</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Grant ...</span><br><span class="line"></span><br><span class="line">Revoke ...</span><br></pre></td></tr></table></figure>
 
-<p>主机也可以使用通配符： mailto:testuser@’196.168.110.1__’</p>
+<p>主机也可以使用通配符： <code>mailto:testuser@&#39;196.168.110.1__&#39;</code></p>
 <p>表示可以使用 110.100-110.199</p>
 <p>查看用户能够使用的权限：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show grants for &#x27;username&#x27;@&#x27;hostname&#x27;</span><br></pre></td></tr></table></figure>
 
-<p>rename user</p>
+<p>rename user:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RENAME USER old_user TO new_user[, old_user TO new_user] ...</span><br><span class="line"></span><br><span class="line">RENAME USER &#x27;jeffrey&#x27;@&#x27;localhost&#x27; TO mailto:&#x27;jeff&#x27;@&#x27;127.0.0.1&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p>grant</p>
+<p>grant:</p>
 <p>MySQL 的权限类型：</p>
-<p>​ 库级别</p>
-<p>​ 表级别</p>
-<p>​ 字段级别</p>
-<p>​ 管理类</p>
-<p>​ 程序类</p>
-<p>管理类权限</p>
-<p>​ create temporary tables 临时表</p>
-<p>​ create user</p>
-<p>​ file 允许用户读或者写某些文件</p>
-<p>​ lock tables 添加显式锁</p>
-<p>​ process 查看用户的线程</p>
-<p>​ reload 相当于执行 flush 和 reset</p>
-<p>​ replication client 查询有哪些复制客户端</p>
-<p>​ replication slave 赋予用户复制权限</p>
-<p>​ show databases</p>
-<p>​ shutdown</p>
-<p>​ super</p>
-<p>数据库访问权限</p>
-<p>​ alter</p>
-<p>​ alter routine 存储过程</p>
-<p>​ create</p>
-<p>​ create routine 存储过程，存储函数</p>
-<p>​ create view</p>
-<p>​ delete</p>
-<p>​ drop</p>
-<p>​ execute</p>
-<p>​ grant option 将自己的权限复制给别的用户</p>
-<p>​ index 索引</p>
-<p>​ show view</p>
-<p>数据操作类权限（表级别）：</p>
-<p>​ select</p>
-<p>​ insert</p>
-<p>​ update</p>
-<p>​ delete</p>
-<p>字段级别：</p>
-<p>​ select (col1, …)</p>
-<p>​ update (col1, …)</p>
-<p>​ insert (col1, …)</p>
-<p>GRANT</p>
-<p>priv_type [(column_list)]</p>
-<p>[, priv_type [(column_list)]] …</p>
-<p>ON [object_type] priv_level</p>
-<p>TO user_specification [, user_specification] …</p>
-<p>[REQUIRE {NONE | ssl_option [[AND] ssl_option] …}]</p>
-<p>[WITH with_option …]</p>
-<p>GRANT PROXY ON user_specification</p>
-<p>TO user_specification [, user_specification] …</p>
-<p>[WITH GRANT OPTION]</p>
-<p>object_type:</p>
-<p>TABLE</p>
-<p>| FUNCTION</p>
-<p>| PROCEDURE</p>
-<p>priv_level:</p>
 <ul>
-<li></li>
+<li>库级别</li>
+<li>表级别</li>
+<li>字段级别</li>
+<li>管理类</li>
+<li>程序类</li>
+<li>管理类权限</li>
 </ul>
-<p>| <em>.</em></p>
-<p>| db_name.*</p>
-<p>| db_name.tbl_name</p>
-<p>| tbl_name</p>
-<p>| db_name.routine_name</p>
+<p>create temporary tables 临时表</p>
+<p>create user</p>
+<p>file 允许用户读或者写某些文件</p>
+<p>lock tables 添加显式锁</p>
+<p>process 查看用户的线程</p>
+<p>reload 相当于执行 flush 和 reset</p>
+<p>replication client 查询有哪些复制客户端</p>
+<p>replication slave 赋予用户复制权限</p>
+<p>show databases</p>
+<p>shutdown</p>
+<p>super</p>
+<p>数据库访问权限:</p>
+<p>alter</p>
+<p>alter routine 存储过程</p>
+<p>create</p>
+<p>create routine 存储过程，存储函数</p>
+<p>create view</p>
+<p>delete</p>
+<p>drop</p>
+<p>execute</p>
+<p>grant option 将自己的权限复制给别的用户</p>
+<p>index 索引</p>
+<p>show view</p>
+<p>数据操作类权限（表级别）：</p>
+<p>select</p>
+<p>insert</p>
+<p>update</p>
+<p>delete</p>
+<p>字段级别：</p>
+<p>select (col1, …)</p>
+<p>update (col1, …)</p>
+<p>insert (col1, …)</p>
+<p>GRANT priv_type [(column_list)][, priv_type [(column_list)]] …<br>ON [object_type] priv_level<br>TO user_specification [, user_specification] …<br>[REQUIRE {NONE | ssl_option [[AND] ssl_option] …}]<br>[WITH with_option …]</p>
+<p>GRANT PROXY ON user_specification<br>TO user_specification [, user_specification] …<br>[WITH GRANT OPTION]</p>
+<p>object_type: TABLE | FUNCTION | PROCEDURE</p>
+<p>priv_level: * | <em>.</em> | db_name.* | db_name.tbl_name | tbl_name | db_name.routine_name</p>
 <p>user_specification:</p>
-<p>user</p>
-<p>[</p>
-<p>​ IDENTIFIED BY [PASSWORD] ‘password’</p>
-<p>​ | IDENTIFIED WITH auth_plugin [AS ‘auth_string’]</p>
-<p>]</p>
+<p>user [IDENTIFIED BY [PASSWORD] ‘password’ | IDENTIFIED WITH auth_plugin [AS ‘auth_string’]]</p>
 <p>ssl_option:</p>
 <p>SSL</p>
 <p>with_option:</p>
@@ -498,21 +438,11 @@
 <p>| MAX_USER_CONNECTIONS count 使用同一个账号可以同时连接的次数</p>
 <p>要想创建库应该对所有表都有权限</p>
 <p>REVOKE 收回授权</p>
-<p>priv_type [(column_list)]</p>
-<p>[, priv_type [(column_list)]] …</p>
-<p>ON [object_type] priv_level</p>
-<p>FROM user [, user] …</p>
-<p>REVOKE ALL PRIVILEGES, GRANT OPTION</p>
-<p>FROM user [, user] …</p>
-<p>REVOKE PROXY ON user</p>
-<p>FROM user [, user] …</p>
+<p>priv_type [(column_list)][, priv_type [(column_list)]] …<br>ON [object_type] priv_level<br>FROM user [, user] …</p>
+<p>REVOKE ALL PRIVILEGES, GRANT OPTION<br>FROM user [, user] …</p>
+<p>REVOKE PROXY ON user<br>FROM user [, user] …</p>
 <p>几个跟用户授权相关的表：</p>
-<p>db：库级别的权限</p>
-<p>host：主机级别权限，已废弃</p>
-<p>tables_priv：表级别权限</p>
-<p>columns_priv：字段级别的权限</p>
-<p>procs_priv：存储过程和存储函数相关的权限</p>
-<p>proxies_priv：代理用户权限</p>
+<p>db：库级别的权限<br>host：主机级别权限，已废弃<br>tables_priv：表级别权限<br>columns_priv：字段级别的权限<br>procs_priv：存储过程和存储函数相关的权限<br>proxies_priv：代理用户权限</p>
 <p>练习：</p>
 <p>1、授权 testuser 能够通过 172.16.0.0&#x2F;16 网络内的任意主机访问当前 MySQL 服务 器的权限</p>
 <p>grant alter on <em>.</em> to ‘testuser‘@’172.16.%.%’ identified by ‘password’</p>
@@ -526,56 +456,35 @@
 <p>grant select(id,name) on testdb.t2 to ‘testuser‘@’172.16.%.%’</p>
 <p>grant grant option on testdb.t2 to ‘testuser‘@’172.16.%.%’</p>
 <h1 id="MySQL-查询缓存"><a href="#MySQL-查询缓存" class="headerlink" title="MySQL 查询缓存"></a>MySQL 查询缓存</h1><p>用于保存 MySQL 查询语句返回的完整结果，被命中时，MySQL 会立即返回结果，省去解析、优化和执行等操作。</p>
-<p>如何检查缓存？</p>
-<p>MySQL 保存结果于缓存中，把 select 语句本身做 hash 计算，计算的结果作为 key，查询结果作为 value</p>
-<p>什么样的语句不会被缓存？</p>
-<p>查询语句中有一些不确定数据时，不会缓存；例如 now()，current_time()；一般来说，如果查询中包含用户自定义函数、存储函数、用户变量、临时表、MySQL 库中系统表、或者任何包含权限的表，一般都不会缓存</p>
+<h2 id="1-如何检查缓存？"><a href="#1-如何检查缓存？" class="headerlink" title="1.如何检查缓存？"></a>1.如何检查缓存？</h2><p>MySQL 保存结果于缓存中，把 select 语句本身做 hash 计算，计算的结果作为 key，查询结果作为 value</p>
+<h2 id="2-什么样的语句不会被缓存？"><a href="#2-什么样的语句不会被缓存？" class="headerlink" title="2.什么样的语句不会被缓存？"></a>2.什么样的语句不会被缓存？</h2><p>查询语句中有一些不确定数据时，不会缓存；例如 now()，current_time()；一般来说，如果查询中包含用户自定义函数、存储函数、用户变量、临时表、MySQL 库中系统表、或者任何包含权限的表，一般都不会缓存</p>
 <p>缓存会带来额外开销</p>
-<p>1、每个查询都会先检查是否命中</p>
-<p>2、查询结果要先缓存</p>
-<p>MySQL&gt; show global variables like ‘query_cache%’;</p>
-<p>+——————————+———-+</p>
-<p>| Variable_name | Value |</p>
-<p>+——————————+———-+</p>
-<p>| query_cache_limit | 1048576 |</p>
-<p>| query_cache_min_res_ungit | 4096 |</p>
-<p>| query_cache_size | 16777216 |</p>
-<p>| query_cache_type | ON |</p>
-<p>| query_cache_wlock_invalidate | OFF |</p>
-<p>+——————————+———-+</p>
-<p>query_cache_type: 查询缓存类型；是否开启缓存功能，开启方式有三种</p>
-<p>{ON|OFF|DEMAND}。DEMAND：意味着 select 语句明确使用 SQL_cache 选项才会缓存</p>
-<p>query_cache_size：总空间。单位为字节，大小必须为 1024 的整数倍。MySQL 启 动时，会一次分配并立即初始化这里指定大小的内存空间；这意味着，如果修改 此大小，会清空缓存并重新初始化</p>
-<p>query_cache_min_res_unit：存储缓存的最小内存块(query_cache_size- Qcache_free_memory)&#x2F;Qcache_queries_in_cache 能够获得一个理想的值</p>
+<ul>
+<li>每个查询都会先检查是否命中</li>
+<li>查询结果要先缓存</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">MySQL<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">global</span> variables <span class="keyword">like</span> <span class="string">&#x27;query_cache%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------------+----------+</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Variable_name <span class="operator">|</span> <span class="keyword">Value</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------------+----------+</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> query_cache_limit <span class="operator">|</span> <span class="number">1048576</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> query_cache_min_res_ungit <span class="operator">|</span> <span class="number">4096</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> query_cache_size <span class="operator">|</span> <span class="number">16777216</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> query_cache_type <span class="operator">|</span> <span class="keyword">ON</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> query_cache_wlock_invalidate <span class="operator">|</span> OFF <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------------------+----------+</span></span><br></pre></td></tr></table></figure>
+
+<p>query_cache_type: 查询缓存类型；是否开启缓存功能，开启方式有三种，即{ON|OFF|DEMAND}。DEMAND：意味着 select 语句明确使用 SQL_cache 选项才会缓存</p>
+<p>query_cache_size：总空间。单位为字节，大小必须为 1024 的整数倍。MySQL 启动时，会一次分配并立即初始化这里指定大小的内存空间；这意味着，如果修改 此大小，会清空缓存并重新初始化</p>
+<p>query_cache_min_res_unit：存储缓存的最小内存块(query_cache_size-Qcache_free_memory)&#x2F;Qcache_queries_in_cache 能够获得一个理想的值</p>
 <p>query_cache_limit：单个缓存对象的最大值，超出时则不予缓存；手动使用 SQL_NO_CACHE: 可以人为的避免尝试缓存返回超出此参数限定值的语句</p>
-<p>query_cache_wlock_invalidate：如果某个表被其他用户连接锁住了，是否仍然从缓 存中返回结果，OFF 表示返回</p>
-<p>如何判断命中率</p>
-<p>分为次数和字节命中率</p>
-<p>MySQL&gt; show global status like ‘Qcache%’;</p>
-<p>+————————-+———-+</p>
-<p>| Variable_name | Value |</p>
-<p>+————————-+———-+</p>
-<p>| Qcache_free_blocks（空闲块数） | 1 |</p>
-<p>| Qcache_free_memory（空闲空间） | 16759688 |</p>
-<p>| Qcache_hits（命中次数） | 0 |</p>
-<p>| Qcache_inserts（向缓存空间中插入的缓存的次数） | 0 |</p>
-<p>| Qcache_lowmem_prunes（内存太小，修剪内存的次数） | 0 |</p>
-<p>| Qcache_not_cached（没被缓存的个数） | 8 |</p>
-<p>| Qcache_queries_in_cache（缓存中缓存的查询个数） | 0 |</p>
-<p>| Qcache_total_blocks（总块数） | 1 |</p>
-<p>+————————-+———-+</p>
+<p>query_cache_wlock_invalidate：如果某个表被其他用户连接锁住了，是否仍然从缓 存中返回结果，OFF表示返回</p>
+<h2 id="3-如何判断命中率"><a href="#3-如何判断命中率" class="headerlink" title="3.如何判断命中率"></a>3.如何判断命中率</h2><p>分为次数和字节命中率</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">MySQL<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">global</span> status <span class="keyword">like</span> <span class="string">&#x27;Qcache%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------+----------+</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Variable_name <span class="operator">|</span> <span class="keyword">Value</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------+----------+</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Qcache_free_blocks（空闲块数） <span class="operator">|</span> <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Qcache_free_memory（空闲空间） <span class="operator">|</span> <span class="number">16759688</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Qcache_hits（命中次数） <span class="operator">|</span> <span class="number">0</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Qcache_inserts（向缓存空间中插入的缓存的次数） <span class="operator">|</span> <span class="number">0</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Qcache_lowmem_prunes（内存太小，修剪内存的次数） <span class="operator">|</span> <span class="number">0</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Qcache_not_cached（没被缓存的个数） <span class="operator">|</span> <span class="number">8</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Qcache_queries_in_cache（缓存中缓存的查询个数） <span class="operator">|</span> <span class="number">0</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">|</span> Qcache_total_blocks（总块数） <span class="operator">|</span> <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"></span><br><span class="line"><span class="operator">+</span><span class="comment">-------------------------+----------+</span></span><br></pre></td></tr></table></figure>
+
 <p>碎片整理 flush query_cache</p>
 <p>清空缓存 reset query_cache</p>
 <p>计算命中率</p>
-<p>show global status where variable_name&#x3D;’Qcache_hits’ OR</p>
-<p>variable_name&#x3D;’Com_Select’;</p>
+<p>show global status where variable_name&#x3D;’Qcache_hits’ OR variable_name&#x3D;’Com_Select’;</p>
 <p>Qcache_hits&#x2F;(Qcache_hits + Com_Select)</p>
-<p>也可以参考另外一个指标，命中和写入的比率，即 Qcache_hits&#x2F;Qcache_inserts 的值，此比值如果能大于 3:1. 则表明缓存也是有效的，能达到 10:1，为比较理想的情况</p>
-<p>缓存优化思路</p>
-<p>1.批量写入，而非多次单个写入</p>
-<p>2.缓存空间不宜过大，因为大量缓存同时失效时会导致服务器假死</p>
-<p>3.必要时，使用 SQL_CACHE 和 SQL_no_cache 手动控制缓存。</p>
-<p>4.对写密集型的应用场景来说，禁用缓存反而提高性能。</p>
+<p>也可以参考另外一个指标，命中和写入的比率，即 Qcache_hits&#x2F;Qcache_inserts 的值，此比值如果能大于 3:1，则表明缓存也是有效的，能达到 10:1，为比较理想的情况</p>
+<h2 id="4-缓存优化思路"><a href="#4-缓存优化思路" class="headerlink" title="4.缓存优化思路"></a>4.缓存优化思路</h2><ol>
+<li>批量写入，而非多次单个写入</li>
+<li>缓存空间不宜过大，因为大量缓存同时失效时会导致服务器假死</li>
+<li>必要时，使用 SQL_CACHE 和 SQL_no_cache 手动控制缓存。</li>
+<li>对写密集型的应用场景来说，禁用缓存反而提高性能。</li>
+</ol>
 <h1 id="MySQL-日志"><a href="#MySQL-日志" class="headerlink" title="MySQL 日志"></a>MySQL 日志</h1><p>查询日志：默认为关闭</p>
 <p>慢查询日志：查询执行时长超过指定时长的查询，即为慢查询</p>
 <p>错误日志：</p>
@@ -584,31 +493,27 @@
 <p>事务日志：将随机 I&#x2F;O 转换为顺序 I&#x2F;O</p>
 <p>日志文件组：至少要存在两个，实现轮询</p>
 <p>注意：尽可能使用小事务来替代大事务来提升事务引擎的性能</p>
-<p>查询日志</p>
-<p>log：{ON|OFF}：是否记录所有语句的日志信息于一般查询日志文件（general_log）</p>
+<h2 id="1-查询日志"><a href="#1-查询日志" class="headerlink" title="1.查询日志"></a>1.查询日志</h2><p>log：{ON|OFF}：是否记录所有语句的日志信息于一般查询日志文件（general_log）</p>
 <p>log_output&#x3D;{TABLE|FILE|NONE}</p>
 <p>table 和 file 可以同时出现，用逗号分隔即可</p>
 <p>general_log：是否启用查询日志</p>
 <p>general_log_file：定义了一般查询日志保存的文件</p>
-<p>慢查询日志</p>
-<p>slow_query_log&#x3D;{ON|OFF}</p>
+<h2 id="2-慢查询日志"><a href="#2-慢查询日志" class="headerlink" title="2.慢查询日志"></a>2.慢查询日志</h2><p>slow_query_log&#x3D;{ON|OFF}</p>
 <p>是否启用慢查询日志，它的输出位置也取决于</p>
 <p>log_output&#x3D;{table|file|none}</p>
 <p>slow_query_log_file：www-slow.log</p>
 <p>定义慢查询日志的文件</p>
 <p>long_query_time : 10.00000 慢查询的时间</p>
-<p>错误日志</p>
-<p>服务器启动和关闭过程中的信息</p>
+<h2 id="3-错误日志"><a href="#3-错误日志" class="headerlink" title="3.错误日志"></a>3.错误日志</h2><p>服务器启动和关闭过程中的信息</p>
 <p>服务器运行过程中的错误信息</p>
 <p>事件调度器运行一个事件时产生的信息</p>
 <p>在复制架构中的从服务器上启动从服务器线程时产生的信息</p>
 <p>log_error &#x3D; &#x2F;path&#x2F;to&#x2F;error_log_file</p>
 <p>log_warnings &#x3D; {1|0}</p>
 <p>是否记录警告信息保存至错误日志中</p>
-<p>二进制日志</p>
-<p>时间点恢复</p>
+<h2 id="4-二进制日志"><a href="#4-二进制日志" class="headerlink" title="4.二进制日志"></a>4.二进制日志</h2><p>时间点恢复</p>
 <p>复制 </p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://blog.shershon.top">谭晓珊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.shershon.top/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/">http://blog.shershon.top/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.shershon.top" target="_blank">码农小山</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_wechat.jpeg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_wechat.jpeg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_alipay.jpeg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_alipay.jpeg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E4%BA%8B%E5%8A%A1/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MySQL 事务</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E7%B4%A2%E5%BC%95/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MySQL 索引</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" title="MySQL分库分表"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-05</div><div class="title">MySQL分库分表</div></div></a></div><div><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E4%BA%8B%E5%8A%A1/" title="MySQL 事务"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-05</div><div class="title">MySQL 事务</div></div></a></div><div><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E7%B4%A2%E5%BC%95/" title="MySQL 索引"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-05</div><div class="title">MySQL 索引</div></div></a></div><div><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/%E9%94%81/" title="MySQL 锁"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-05</div><div class="title">MySQL 锁</div></div></a></div><div><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/SQL%E4%BC%98%E5%8C%96/" title="SQL 优化"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-05</div><div class="title">SQL 优化</div></div></a></div><div><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/" title="MySQL常见知识点"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-05</div><div class="title">MySQL常见知识点</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">谭晓珊</div><div class="author-info__description">生活幸福，健康快乐！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shershon1991"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shershon1991" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:18810877074@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">新人报道，请大家多多关照！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">MySQL 工作原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL%E8%AF%AD%E8%A8%80-x2F-%E9%94%81-x2F-%E4%BA%8B%E7%89%A9%E5%8F%8A%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">SQL语言&#x2F;锁&#x2F;事物及隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-SQL-%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-text">1.SQL 语言的功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MySQL-%E9%94%81"><span class="toc-text">2.MySQL 锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BA%8B%E7%89%A9%EF%BC%88transaction%EF%BC%89"><span class="toc-text">3.事物（transaction）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">4.隔离级别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%AF%B9%E6%AF%94"><span class="toc-text">MySQL 存储引擎对比</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-InnoDB"><span class="toc-text">1.InnoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MyISAM"><span class="toc-text">2.MyISAM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="toc-text">3.表空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%90%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">4.各存储引擎的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B"><span class="toc-text">5.索引类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-text">MySQL 用户管理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="toc-text">MySQL 查询缓存</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E6%97%A5%E5%BF%97"><span class="toc-text">MySQL 日志</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/10/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/03-%E5%88%87%E7%89%87/" title="Go底层探索(三):切片">Go底层探索(三):切片</a><time datetime="2023-03-09T16:00:00.000Z" title="发表于 2023-03-10 00:00:00">2023-03-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/08/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/02-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Go底层探索(二):字符串">Go底层探索(二):字符串</a><time datetime="2023-03-07T16:00:00.000Z" title="发表于 2023-03-08 00:00:00">2023-03-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/02/%E7%BC%96%E7%A8%8B/PHP/PHP%E6%89%A9%E5%B1%95/4-jwt/" title="php扩展(四):jwt">php扩展(四):jwt</a><time datetime="2023-03-01T16:00:00.000Z" title="发表于 2023-03-02 00:00:00">2023-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/27/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/01-%E7%BC%96%E8%AF%91%E5%99%A8/" title="Go底层探索(一):编译器">Go底层探索(一):编译器</a><time datetime="2023-02-26T16:00:00.000Z" title="发表于 2023-02-27 00:00:00">2023-02-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/05/%E7%BC%96%E7%A8%8B/Go/%E6%89%A9%E5%B1%95%E5%8C%85/31-rocketmq/" title="Go扩展包(三十一):rocketmq">Go扩展包(三十一):rocketmq</a><time datetime="2022-10-04T16:00:00.000Z" title="发表于 2022-10-05 00:00:00">2022-10-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 谭晓珊</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn">鄂ICP备2022015295号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://blog.shershon.top">谭晓珊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.shershon.top/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/">http://blog.shershon.top/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.shershon.top" target="_blank">码农小山</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_wechat.jpeg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_wechat.jpeg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_alipay.jpeg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_alipay.jpeg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/Nginx&amp;Lua/Nginx/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Nginx</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/05/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/4-%E7%94%A8%E6%88%B7%E7%BC%96%E7%A8%8B%E6%8E%A5%E5%8F%A3/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">用户编程接口</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/06/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" title="MySQL分库分表"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">MySQL分库分表</div></div></a></div><div><a href="/2022/05/10/%E5%90%8E%E7%AB%AF/MySQL/%E4%BA%8B%E5%8A%A1/" title="MySQL 事务"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">MySQL 事务</div></div></a></div><div><a href="/2022/05/09/%E5%90%8E%E7%AB%AF/MySQL/%E7%B4%A2%E5%BC%95/" title="MySQL 索引"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-09</div><div class="title">MySQL 索引</div></div></a></div><div><a href="/2022/05/11/%E5%90%8E%E7%AB%AF/MySQL/%E9%94%81/" title="MySQL 锁"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-11</div><div class="title">MySQL 锁</div></div></a></div><div><a href="/2022/05/08/%E5%90%8E%E7%AB%AF/MySQL/SQL%E4%BC%98%E5%8C%96/" title="SQL 优化"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-08</div><div class="title">SQL 优化</div></div></a></div><div><a href="/2022/05/07/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/" title="MySQL常见知识点"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-07</div><div class="title">MySQL常见知识点</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">谭晓珊</div><div class="author-info__description">生活幸福，健康快乐！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shershon1991"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shershon1991" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:18810877074@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">新人报道，请大家多多关照！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text">MySQL 工作原理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL%E8%AF%AD%E8%A8%80-x2F-%E9%94%81-x2F-%E4%BA%8B%E7%89%A9%E5%8F%8A%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">SQL语言&#x2F;锁&#x2F;事物及隔离级别</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-SQL-%E8%AF%AD%E8%A8%80%E7%9A%84%E5%8A%9F%E8%83%BD"><span class="toc-text">1.SQL 语言的功能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2"><span class="toc-text">1.1 数据查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E6%95%B0%E6%8D%AE%E6%93%8D%E7%BA%B5%E8%AF%AD%E5%8F%A5-DML"><span class="toc-text">1.2 数据操纵语句(DML)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89%E8%AF%AD%E5%8F%A5-DDL"><span class="toc-text">1.3 数据定义语句(DDL)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-DCL"><span class="toc-text">1.4 DCL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-insert-%E6%8F%92%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">1.5 insert 插入数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-6-update-%E6%9B%B4%E6%96%B0%E6%95%B0%E6%8D%AE"><span class="toc-text">1.6 update 更新数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-7-delete%EF%BC%9A%E5%88%A0%E9%99%A4%E6%95%B0%E6%8D%AE"><span class="toc-text">1.7 delete：删除数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-8-%E5%85%B6%E4%BB%96%E6%9C%AF%E8%AF%AD"><span class="toc-text">1.8 其他术语</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MySQL-%E9%94%81"><span class="toc-text">2.MySQL 锁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E9%94%81%E7%B2%92%E5%BA%A6"><span class="toc-text">2.1 锁粒度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E9%94%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%BD%8D%E7%BD%AE"><span class="toc-text">2.2 锁的实现位置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%BA%8B%E7%89%A9%EF%BC%88transaction%EF%BC%89"><span class="toc-text">3.事物（transaction）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="toc-text">4.隔离级别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%AF%B9%E6%AF%94"><span class="toc-text">MySQL 存储引擎对比</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-InnoDB"><span class="toc-text">1.InnoDB</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-MyISAM"><span class="toc-text">2.MyISAM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="toc-text">3.表空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%90%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E7%89%B9%E6%80%A7"><span class="toc-text">4.各存储引擎的特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B"><span class="toc-text">5.索引类型</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86"><span class="toc-text">MySQL 用户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%A8%E6%88%B7%E8%B4%A6%E5%8F%B7%E7%AE%A1%E7%90%86"><span class="toc-text">1.用户账号管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86"><span class="toc-text">2.权限管理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98"><span class="toc-text">MySQL 查询缓存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E6%A3%80%E6%9F%A5%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="toc-text">1.如何检查缓存？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E8%AF%AD%E5%8F%A5%E4%B8%8D%E4%BC%9A%E8%A2%AB%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="toc-text">2.什么样的语句不会被缓存？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%91%BD%E4%B8%AD%E7%8E%87"><span class="toc-text">3.如何判断命中率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E7%BC%93%E5%AD%98%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF"><span class="toc-text">4.缓存优化思路</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySQL-%E6%97%A5%E5%BF%97"><span class="toc-text">MySQL 日志</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="toc-text">1.查询日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="toc-text">2.慢查询日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E9%94%99%E8%AF%AF%E6%97%A5%E5%BF%97"><span class="toc-text">3.错误日志</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%97%A5%E5%BF%97"><span class="toc-text">4.二进制日志</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/10/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/03-%E5%88%87%E7%89%87/" title="Go底层探索(三):切片">Go底层探索(三):切片</a><time datetime="2023-03-09T16:00:00.000Z" title="发表于 2023-03-10 00:00:00">2023-03-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/08/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/02-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Go底层探索(二):字符串">Go底层探索(二):字符串</a><time datetime="2023-03-07T16:00:00.000Z" title="发表于 2023-03-08 00:00:00">2023-03-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/02/%E7%BC%96%E7%A8%8B/PHP/PHP%E6%89%A9%E5%B1%95/4-jwt/" title="php扩展(四):jwt">php扩展(四):jwt</a><time datetime="2023-03-01T16:00:00.000Z" title="发表于 2023-03-02 00:00:00">2023-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/27/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/01-%E7%BC%96%E8%AF%91%E5%99%A8/" title="Go底层探索(一):编译器">Go底层探索(一):编译器</a><time datetime="2023-02-26T16:00:00.000Z" title="发表于 2023-02-27 00:00:00">2023-02-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/05/%E7%BC%96%E7%A8%8B/Go/%E6%89%A9%E5%B1%95%E5%8C%85/31-rocketmq/" title="Go扩展包(三十一):rocketmq">Go扩展包(三十一):rocketmq</a><time datetime="2022-10-04T16:00:00.000Z" title="发表于 2022-10-05 00:00:00">2022-10-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 谭晓珊</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn">鄂ICP备2022015295号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
   function initValine () {
     const valine = new Valine(Object.assign({
       el: '#vcomment',

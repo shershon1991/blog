@@ -1,0 +1,689 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>MySQL常见知识点 | 码农小山</title><meta name="keywords" content="MySQL"><meta name="author" content="谭晓珊,18810877074@163.com"><meta name="copyright" content="谭晓珊"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1.如何预防 SQL 注入？1.1 何为 SQL 注入？SQL 注入：是利用某些数据库的外部接口将用户数据插入到实际的数据库操作语句中，从而达到入侵数据库甚至操作系统的目的。 SQL 注入产生的主要原因：程序对用户输入的数据没有进行严格的过滤，导致非法数据库查询语句的执行。 SQL 注入具有很大的危害，可能会导致攻击者非法入侵系统，或者盗取数据，甚至清空数据等。 1.2 如何进行 SQL 注入攻击">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL常见知识点">
+<meta property="og:url" content="http://blog.shershon.top/2022/05/07/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/index.html">
+<meta property="og:site_name" content="码农小山">
+<meta property="og:description" content="1.如何预防 SQL 注入？1.1 何为 SQL 注入？SQL 注入：是利用某些数据库的外部接口将用户数据插入到实际的数据库操作语句中，从而达到入侵数据库甚至操作系统的目的。 SQL 注入产生的主要原因：程序对用户输入的数据没有进行严格的过滤，导致非法数据库查询语句的执行。 SQL 注入具有很大的危害，可能会导致攻击者非法入侵系统，或者盗取数据，甚至清空数据等。 1.2 如何进行 SQL 注入攻击">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg">
+<meta property="article:published_time" content="2022-05-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-06-27T15:10:42.545Z">
+<meta property="article:author" content="谭晓珊">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://blog.shershon.top/2022/05/07/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: {"appId":"TTENARPLYL","apiKey":"9f0c02b55e9885568dcbf6ef094b433c","indexName":"hexo","hits":{"per_page":6},"languages":{"input_placeholder":"搜索文章","hits_empty":"找不到您查询的内容：${query}","hits_stats":"找到 ${hits} 条结果，用时 ${time} 毫秒"}},
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'MySQL常见知识点',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-06-27 23:10:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="not-top-img" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">码农小山</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 资源</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav></header><main class="layout" id="content-inner"><div id="post"><div id="post-info"><h1 class="post-title">MySQL常见知识点</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-06T16:00:00.000Z" title="发表于 2022-05-07 00:00:00">2022-05-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-06-27T15:10:42.545Z" title="更新于 2023-06-27 23:10:42">2023-06-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%90%8E%E7%AB%AF/MySQL/">MySQL</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="MySQL常见知识点"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span><span class="post-meta-separator">|</span><span class="post-meta-commentcount"><i class="far fa-comments fa-fw post-meta-icon"></i><span class="post-meta-label">评论数:</span><a href="/2022/05/07/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count" data-xid="/2022/05/07/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="commentCount"><i class="fa-solid fa-spinner fa-spin"></i></span></a></span></div></div></div><article class="post-content" id="article-container"><h1 id="1-如何预防-SQL-注入？"><a href="#1-如何预防-SQL-注入？" class="headerlink" title="1.如何预防 SQL 注入？"></a>1.如何预防 SQL 注入？</h1><h2 id="1-1-何为-SQL-注入？"><a href="#1-1-何为-SQL-注入？" class="headerlink" title="1.1 何为 SQL 注入？"></a>1.1 何为 SQL 注入？</h2><p><code>SQL</code> 注入：是利用某些数据库的外部接口将用户数据插入到实际的数据库操作语句中，从而达到入侵数据库甚至操作系统的目的。</p>
+<p><code>SQL</code> 注入产生的主要原因：程序对用户输入的数据没有进行严格的过滤，导致非法数据库查询语句的执行。</p>
+<p><code>SQL</code> 注入具有很大的危害，可能会导致攻击者非法入侵系统，或者盗取数据，甚至清空数据等。</p>
+<h2 id="1-2-如何进行-SQL-注入攻击？"><a href="#1-2-如何进行-SQL-注入攻击？" class="headerlink" title="1.2 如何进行 SQL 注入攻击？"></a>1.2 如何进行 SQL 注入攻击？</h2><h2 id="1-3-如何预防-SQL-注入？"><a href="#1-3-如何预防-SQL-注入？" class="headerlink" title="1.3 如何预防 SQL 注入？"></a>1.3 如何预防 SQL 注入？</h2><p><strong>控制输入变量的格式</strong></p>
+<p>增加了对输入信息的判断，过滤掉一些带特殊字符的输入。</p>
+<p><strong>转义特殊字符</strong></p>
+<p>有时，我们程序是允许输入信息带特殊字符的，这种情况就可以使用转义的方式，防止 <code>SQL</code> 注入。</p>
+<h1 id="2-主键是否需要设置为自增？"><a href="#2-主键是否需要设置为自增？" class="headerlink" title="2.主键是否需要设置为自增？"></a>2.主键是否需要设置为自增？</h1><h2 id="2-1-主键和聚簇索引的关系"><a href="#2-1-主键和聚簇索引的关系" class="headerlink" title="2.1 主键和聚簇索引的关系"></a>2.1 主键和聚簇索引的关系</h2><ul>
+<li>在 <code>InnoDB</code> 中，聚集索引不一定是主键，但是主键一定是聚集索引：原因是如果没有定义主键，聚集索引可能是第一个不允许为 null 的唯一索引，如果也没有这样的唯一索引，<code>InnoDB</code> 会选择内置 6 字节长的 <code>ROW ID</code><br>作为隐含的聚集索引。</li>
+<li><code>InnoDB</code> 的数据是按照主键顺序存放的，而聚集索引就是按照每张表的主键构造一颗 <code>B+Tree</code>，它的叶子节点存放的是整行数据。 </li>
+<li>每张 <code>InnoDB</code> 表都有一个聚簇索引，但是不一定有主键。</li>
+</ul>
+<h2 id="2-2-主键是否需要设置为自增？"><a href="#2-2-主键是否需要设置为自增？" class="headerlink" title="2.2 主键是否需要设置为自增？"></a>2.2 主键是否需要设置为自增？</h2><p>通过上面的学习，我们知道了聚集索引是按照每张表的主键构造一颗 <code>B+Tree</code> 的，而 在<code>B+Tree</code>中，所有记录节点都是按键值的大小顺序存放在同一层叶子节点上。</p>
+<p>如果每次插入的数据都是在聚簇索引树的后面，聚集索引不需要分裂就可以存入数据。</p>
+<p>但是如果插入的数据值在聚簇索引树的中间部分，由于要保证插入后叶子节点中的记录依然排序，就可能需要聚簇索引树分裂来保证键值的有序性。</p>
+<p>因此如果业务输入的主键都是随机数字，那么写入数据时很可能会导致数据页频繁分裂，从而影响写入效率。</p>
+<p>而如果设置主键是自增，那么每一次都是在聚簇索引的最后增加，当一页写满，就会自动开辟一个新页，不会有聚簇索引树分裂这一步，效率会比随机主键高很多。这也是很多建表规范要求主键自增的原因。</p>
+<p>当然也不是所有的情况主键都需要设置为自增，比如可以用程序写入增长的主键值，保证了新写入数据的主键值比之前大，也可以避免聚簇索引树频繁分裂。</p>
+<h1 id="3-MySQL-是否需要开启查询缓存？"><a href="#3-MySQL-是否需要开启查询缓存？" class="headerlink" title="3.MySQL 是否需要开启查询缓存？"></a>3.MySQL 是否需要开启查询缓存？</h1><p>从 <code>MySQL4.1</code> 开始，增加了查询缓存(<code>Query Cache</code>,简称<code>QC</code>)的功能，它会存储 <code>select</code> 语句的文本以及发送到客户端的结果，若下一次收到一个相同的查询，就会从查询缓存中获得查询结果。</p>
+<h2 id="3-1-认识-QC"><a href="#3-1-认识-QC" class="headerlink" title="3.1 认识 QC"></a>3.1 认识 <code>QC</code></h2><p><code>QC</code> 需要缓存最新数据结果，因此表数据发生任何变化（<code>insert</code>、<code>update</code>、<code>delete</code> 等操作时），都会导致 <code>QC</code> 被刷新。</p>
+<p>查询缓存相关的参数主要有：</p>
+<p><code>show variables like &#39;%query_cache%&#39;;</code></p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wps0X8ON8.jpg" alt="img"></p>
+<p>这里解释一下上面几个参数:</p>
+<p><code>have_query_cache</code>：服务器在安装时是否已经配置了高速缓存</p>
+<p><code>query_cache_limi</code>t：单条查询能够使用的缓存区大小</p>
+<p><code>query_cache_min_res_unit</code>：查询缓存分配内存块的最小单位</p>
+<p><code>query_cache_size</code>：缓存区的大小，单位为 <code>MB</code></p>
+<p><code>query_cache_type</code>：缓存类型，有三个值可选：</p>
+<ul>
+<li>0 或者 <code>off</code>：关闭缓存 </li>
+<li>1 或者 <code>on</code>：打开缓存 </li>
+<li>2 或者 <code>demand</code>：只缓存带有 <code>sql_cache</code> 的 <code>select</code> 语句。</li>
+</ul>
+<p><code>query_cache_wlock_invalidate</code>：如果某个数据表被其它的连接锁住，是否仍然从查 询缓存中返回结果.</p>
+<p>通过下面命令，可以监视查询缓存的使用情况：</p>
+<p><code>show global status like &quot;qcache%&quot;;</code></p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wpslsPbxG.jpg" alt="img"></p>
+<p>这里解释一下各个参数的意义</p>
+<p><code>Qcache_free_blocks</code>：查询缓存中的空闲内存块的数目</p>
+<p><code>Qcache_free_memory</code>：查询缓存的空闲内存总数</p>
+<p><code>Qcache_hits</code>：缓存命中次数</p>
+<p><code>Qcache_inserts</code>：被加入到缓存中的查询数目</p>
+<p><code>Qcache_lowmem_prunes</code>：因为缺少内存而从缓存中删除的查询数目</p>
+<p><code>Qcache_not_cached</code>：没有被缓存的查询数目</p>
+<p><code>Qcache_queries_in_cache</code>：在缓存中已注册的查询数目</p>
+<p><code>Qcache_total_blocks</code>：查询缓存中的块的总数目</p>
+<h2 id="3-2-QC-的优劣"><a href="#3-2-QC-的优劣" class="headerlink" title="3.2 QC 的优劣"></a>3.2 <code>QC</code> 的优劣</h2><p>优势：</p>
+<ul>
+<li>提高查询速度：使用查询缓存在单行数据的表中搜索要比不使用查询缓存快 238%（数据来源：<code>MySQL 5.7</code> 官方手册）。</li>
+</ul>
+<p>劣势：</p>
+<ul>
+<li>比如执行的 <code>SQL</code> 都很简单（比如从只有一行的表中查询数据），但每次查询都不一样的话，打开 <code>QC</code> 后，额外的开销为 13% 左右；</li>
+<li>如果表数据发生了修改，使用该表的所有缓存查询都将失效，并且从缓存中删除； </li>
+<li><code>QC</code> 要求前后两次请求的 <code>SQL</code> 完全一样，不同数据库、不同协议版本或不同默认字符集的查询，都会被认为是不同的查询。甚至包括大小写，比如下面两条 <code>SQL</code>，查询缓存就会认为是两个不同的查询：</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> tbl_name;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> tbl_name;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>每次更新 <code>QC</code> 的内存块都需要进行锁定；</li>
+<li>可能会导致 <code>SQL</code> 查询时间不稳定</li>
+</ul>
+<h2 id="3-3-是否需要开启-QC？"><a href="#3-3-是否需要开启-QC？" class="headerlink" title="3.3 是否需要开启 QC？"></a>3.3 是否需要开启 <code>QC</code>？</h2><p>通过上面讲解的 <code>QC</code> 优劣，对于是否需要开启 <code>QC</code> 这个问题，我们大概能总结出：</p>
+<p>如果线上环境中 99% 以上都是只读，很少更新，可以考虑全局开启 <code>QC</code>，也就是设置 <code>query_cache_type</code> 为 1。很多时候，我们希望缓存的是几张更新频率很低的表，其它表不考虑使用查询缓存，就可以考虑将 <code>query_cache_type</code> 设置成 2 或者 DEMAND，这样就只缓存下面这类 <code>SQL</code>：</p>
+<p><code>select sql_cache ...;</code></p>
+<h2 id="3-4-怎样开启和关闭-QC？"><a href="#3-4-怎样开启和关闭-QC？" class="headerlink" title="3.4 怎样开启和关闭 QC？"></a>3.4 怎样开启和关闭 <code>QC</code>？</h2><p>1.全局开启：</p>
+<p>在配置文件 <code>my.cnf</code> 中设置：</p>
+<ul>
+<li><code>query_cache_type = 1</code></li>
+<li><code>query_cache_size = 50M</code></li>
+</ul>
+<p>2.只开启部分表的 <code>QC</code></p>
+<p>在配置文件 <code>my.cnf</code> 中设置：</p>
+<ul>
+<li><code>query_cache_type = 2</code></li>
+<li><code>query_cache_size = 50M</code></li>
+</ul>
+<p>3.关闭 <code>QC</code></p>
+<p>在配置文件 <code>my.cnf</code> 中设置：</p>
+<ul>
+<li><code>query_cache_type = 0</code></li>
+<li><code>query_cache_size = 0</code></li>
+<li>或者源码编译安装 <code>MySQL</code> 的话，编译时增加参数 <code>--without-query-cache</code> 即可。</li>
+</ul>
+<h2 id="3-5-开启-QC-的注意事项"><a href="#3-5-开启-QC-的注意事项" class="headerlink" title="3.5 开启 QC 的注意事项"></a>3.5 开启 QC 的注意事项</h2><p>如果要开启 <code>QC</code>，建议不要设置过大，通常几十兆就好。如果设置过大，会增加维护缓存所需要的开销。</p>
+<p>另外要注意一些即使开启 <code>QC</code> 也不能使用 <code>QC</code> 的场景（这里参考的是 <code>MySQL 5.7</code> 官方手册第 <code>8.10.3.1</code> 节：<code>How the Query Cache Operates</code> ）：</p>
+<ul>
+<li>分区表不支持，如果涉及分区表的查询，将自动禁用查询缓存</li>
+<li>子查询或者外层查询 </li>
+<li>存储过程、触发器中使用的 <code>SQL</code></li>
+<li>读取系统库时 </li>
+<li>类似下面 <code>SQ</code>L 时： <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> ... lock <span class="keyword">in</span> share mode</span><br><span class="line"><span class="keyword">select</span> ... <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure></li>
+<li>用到临时表 </li>
+<li>产生了 <code>warning</code> 的查询 </li>
+<li>显示增加了 <code>SQL_NO_CACHE</code> 关键字的 </li>
+<li>如果没有全部库、表的 <code>select</code> 权限，则也不会使用 <code>QC</code></li>
+<li>使用了一些函数：比如 <code>now()</code>，<code>user()</code>，<code>password()</code> 等</li>
+</ul>
+<h1 id="4-使用读写分离需要注意哪些？"><a href="#4-使用读写分离需要注意哪些？" class="headerlink" title="4. 使用读写分离需要注意哪些？"></a>4. 使用读写分离需要注意哪些？</h1><p>对于高访问量的业务场景，<code>MySQL</code> 读写分离显得格外重要。通常我们所说的读写分离说的是：对于修改操作在主库上进行，对于查询操作，在从库上进行。主要目的是分担主库的压力。但是读写分离有时也会存在问题，比如：主从延迟时，读取的从库数据不是最新的。对应的业务场景如：</p>
+<ul>
+<li>你网购的一个商品，付完款之后，因为主从延迟，第一时间还查询不到订单（查询的从库），即使等一段时间能看到订单，但是相信这种情况很多用户是不能接受的。</li>
+</ul>
+<p>通常情况下，读写分离都是依赖主从复制。</p>
+<p>主从复制的原理:</p>
+<h2 id="4-1-MySQL-的主从复制"><a href="#4-1-MySQL-的主从复制" class="headerlink" title="4.1 MySQL 的主从复制"></a>4.1 MySQL 的主从复制</h2><p>传统的 <code>MySQL</code> 主从复制是异步的，因此也称为异步复制，<code>MySQL</code> 异步复制的 原理如下：</p>
+<ul>
+<li>在主库开启 <code>binlog</code> 的情况下</li>
+<li>如果主库有增删改的语句，会记录到 <code>binlog</code> 中 </li>
+<li>主库通过 <code>IO</code> 线程把 <code>binlog</code> 里面的内容传给从库的中继日志（<code>relay log</code>）中 </li>
+<li>主库给客户端返回 <code>commit</code> 成功（这里不会管从库是否已经收到了事务的 <code>binlog</code>） </li>
+<li>从库的 <code>SQL</code> 线程负责读取它的 <code>relay log</code> 里的信息并应用到从库数据库中</li>
+</ul>
+<p>实现原理如下图：</p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wps6bJmRZ.jpg" alt="img"></p>
+<p>在上图中，有一个地方不能忽视：</p>
+<p>在主库上并行运行的更新 <code>SQL</code>，由于从库只有单个 <code>SQL</code> 线程去消化 <code>relay log</code>，因此更新的 <code>SQL</code> 在从库只能串行执行。这也是很多情况下，会出现主从延迟的原因。</p>
+<p>当然，从 <code>5.6</code> 开始，<code>MySQL</code> 支持了每个库可以配置单独的 <code>SQL</code> 线程来消化 <code>relay log</code>，在 <code>5.7</code> 又增加了基于组提交的并行复制，大大改善了主从延迟的问题。</p>
+<h2 id="4-2-MySQL-半同步复制"><a href="#4-2-MySQL-半同步复制" class="headerlink" title="4.2 MySQL 半同步复制"></a>4.2 MySQL 半同步复制</h2><p>在 <code>MySQL</code> 异步复制的基础上，又出现了一种改进的复制方式，称为：半同步复制。其原理如下：</p>
+<ul>
+<li>在主库开启 <code>binlog</code> 的情况下 </li>
+<li>如果主库有增删改的语句，会记录到 <code>binlog</code> 中 </li>
+<li>主库通过 <code>IO</code> 线程把 <code>binlog</code> 里面的内容传给从库的中继日志（<code>relay log</code>）中 </li>
+<li>从库收到 <code>binlog</code> 后，发送给主库一个 <code>ACK</code>，表示收到了 </li>
+<li>主库收到这个 <code>ACK</code> 以后，才能给客户端返回 <code>commit</code> 成功 </li>
+<li>从库的 <code>SQL</code> 线程负责读取它的 <code>relay log</code> 里的信息并应用到从库数据库中</li>
+</ul>
+<p>实现原理如下图：</p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wpskDXCSh.jpg" alt="img"></p>
+<p>跟传统的异步复制相比，半同步复制保证了所有给客户端发送过确认提交的事务，从库都已经收到这个日志了。</p>
+<h2 id="4-3-常见的读写分离方式"><a href="#4-3-常见的读写分离方式" class="headerlink" title="4.3 常见的读写分离方式"></a>4.3 常见的读写分离方式</h2><p>1.通过程序</p>
+<p>开发通过配置程序来决定修改操作走主库，查询操作走从库。这种方式直连数据库，优点是性能会好点，缺点是配置麻烦。但是需要注意的是：从库需要设置为 <code>read_only</code>，防止配置错误在从库写入了数据。</p>
+<p>这里提醒一点：</p>
+<p>程序连接的用户建议不要给 <code>super</code> 权限，因为 <code>super</code> 权限的用户，即使整个库设置了 <code>read_only</code>，也能写入数据。</p>
+<p>2.通过中间件</p>
+<p>通过中间件实现读写分离，目前算是一种主流的方式。拿 <code>MyCAT</code> 举例：</p>
+<p>在 <code>schema.xml</code> 文件中，<code>dataHost</code> 标签 <code>balance</code> 属性的值，决定了是否启用读写分离。</p>
+<p><code>balance</code> 各个值及对应的读写方法如下：</p>
+<ul>
+<li>0：不开启读写分离，读操作发送到 <code>writehost</code></li>
+<li>1：全部的 <code>readhost</code> 与 <code>stand by writehost</code> 参与 <code>select</code> 语句的负载均衡 </li>
+<li>2：所有读操作都随机在 <code>writehost</code>、<code>readhost</code> 上分发 </li>
+<li>3：所有读请求随机分发到 <code>writerhost</code> 对应的 <code>readhost</code> 执行，<code>writehost</code> 不负担读压力</li>
+</ul>
+<p>因此可以根据实际情况选择上面合适的读写分离策略。</p>
+<blockquote>
+<p>什么情况下会出现主从延迟？</p>
+</blockquote>
+<p>在本节的开始，我们说到，对于读写分离场景，最大的问题就是：主从延迟。那么在哪些情况下会出现主从延迟呢？这里大致总结一下可能导致主从延迟的场景：</p>
+<ul>
+<li>大表 <code>DDL</code></li>
+<li>大事务</li>
+<li>主库 <code>DML</code> 并发大</li>
+<li>从库配置差</li>
+<li>表上无主键</li>
+<li>…</li>
+</ul>
+<p>因此，如果存在读写分离的情况，应尽量避免上述情况在业务高峰出现。当然，我们不能完全杜绝主从延迟。因此再介绍几种读写分离场景下应对延迟的方法。</p>
+<blockquote>
+<p>读写分离如何应对主从延迟？</p>
+</blockquote>
+<p>读写分离场景应该怎样应对主从延迟呢？这里来讨论一下几种常见的应对主从延迟的方法：</p>
+<p>1.判断主从是否延迟</p>
+<p>有些业务场景，如果所有请求都落在主库，主库压力会很大，但是在读写分离的情况，又不希望主从存在延迟的时候去读取从库。这种情况，就可以考虑查询时，先判断主从是否存在延迟，如果存在延迟，则查询落在主库，如果没延迟，则查询语句落在从库。</p>
+<p>这里介绍几种判断主从延迟的方法：</p>
+<p>第一种方法：判断 <code>Seconds_Behind_Master</code> 是否等于 0。</p>
+<p>如果 <code>Seconds_Behind_Master = 0</code>，则查询从库，如果大于 0，则查询主库。</p>
+<p><code>Seconds_Behind_Master</code>: <code>Seconds_Behind_Master</code> 是在从库上执行 <code>show slave status</code> 时返回的其中一项，表示从库延迟的秒数。</p>
+<p>其计算方法是：</p>
+<p>从库服务器当前的时间戳与二进制日志中的事件的时间戳（在主库上的写入时间）相对比得到的。但是某些情况下，<code>Seconds_Behind_Master</code> 并不一定准确。比如网络中断时，<code>Seconds_Behind_Master = 0</code>，并不能代表主从无延迟。因此，有比这个更准确的一种方法：对比位点或 <code>GTID</code>。</p>
+<p>第二种方法：对比位点或<code>GTID</code></p>
+<p>如果 <code>Master_Log_File</code> 跟 <code>Relay_Master_Log_File</code> 相等，并且 <code>Read_Master_Log_Pos</code> 跟 <code>Exec_Master_Log_Pos</code> 相等，则可以把读请求放到从库，否则读请求放到主库。</p>
+<p>补充一下上面几个参数的意义：</p>
+<p>几个参数均是通过 <code>show slave status</code> 返回的参数，用来查询主从复制的状态。</p>
+<p><code>Master_Log_File</code>：<code>IO</code> 线程正在读取的主库 <code>binlog</code> 文件名</p>
+<p><code>Relay_Master_Log_File</code>：<code>SQL</code> 线程最近执行的事务对应的主库 <code>binlog</code> 文件名</p>
+<p><code>Read_Master_Log_Pos</code>：<code>IO</code> 线程正在读取的主库 <code>binlog</code> 文件中的位点</p>
+<p><code>Exec_Master_Log_Pos</code>：<code>SQL</code> 线程最近读取和执行的事务对应的主库 <code>binlog</code> 文件中的位点</p>
+<p>如果开启了 <code>GTID</code> 复制，则可以对比 <code>Retrieved_Gtid_Set</code> 和 <code>Executed_Gtid_Set</code> 是否相等，相等则把读请求放到从库，有差异则读请求放到主库。</p>
+<p>同样补充下两个参数的意义：</p>
+<p>前提是需要开启 <code>GTID</code> 两个参数才会有值，解释如下：</p>
+<p><code>Retrieved_Gtid_Set</code>：从库收到的所有日志的 <code>GTID</code> 集合</p>
+<p><code>Executed_Gtid_Set</code>：从库已经执行完的 <code>GTID</code> 集合</p>
+<p>2.采用半同步复制</p>
+<p>在本节的前面，我们讲解了半同步复制的原理，跟传统的异步复制相比，半同步复制保证了所有给客户端发送过确认提交的事务，从库都已经收到这个日志了。因此出现延迟的概率会小很多，当然实际生产应用时，建议结合上面讲的位点或 <code>GTID</code> 判断。</p>
+<p>3.等待同步完成</p>
+<p>依然采用 <code>4.4.1</code> 中介绍的几种判断是否有延迟的方法，只是应对方式不一样，比如存在延迟，则将情况反馈给程序，在前端页面提醒用户数据未完全同步，如果没有延迟，则查询从库。有人可能会觉得：这种方式谁会用啊？实际可以应用在内部人员看的报表业务上。因为报表可能涉及的 <code>SQL</code> 都比较复杂，存在延迟就考虑去查询主库，可能会对其它线上业务有影响，因此可以等待从库同步完成，再查询从库。</p>
+<h1 id="5-哪些情况需要考虑分库分表？"><a href="#5-哪些情况需要考虑分库分表？" class="headerlink" title="5. 哪些情况需要考虑分库分表？"></a>5. 哪些情况需要考虑分库分表？</h1><p><code>MySQL</code> 分库分表：把 <code>MySQL</code> 数据库物理地拆分到多个实例或者机器上去，从而降低单台 <code>MySQL</code> 实例的负载。</p>
+<h2 id="5-1-MySQL-分库分表拆分方法"><a href="#5-1-MySQL-分库分表拆分方法" class="headerlink" title="5.1 MySQL 分库分表拆分方法"></a>5.1 MySQL 分库分表拆分方法</h2><p><code>MySQL</code> 分库分表拆分方法分为：<font color="red">垂直拆分和水平拆分。</font></p>
+<p>1.垂直拆分</p>
+<p>垂直拆分一般是指下面几种情况：</p>
+<ul>
+<li>有多个业务，每个业务单独分到一个实例里面。</li>
+<li>在一个实例中有多个库，把这些库分别放到单独的实例中。</li>
+<li>在一个库中存在过多的表，把这些表拆分到多个库中。</li>
+<li>把字段过多的表拆分成多个表，每张表包含一部分字段。</li>
+</ul>
+<p>比如一个电商网站，他的用户信息（<code>userinfo</code>）、商品信息（<code>productinfo</code>）、订单信息（<code>orderinfo</code>) 垂直拆分在三个实例中，如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wpsABeJ8i.jpg" alt="img"></p>
+<p>2.水平拆分</p>
+<p>如果通过垂直拆分，表数据量仍然很大，那就可以考虑使用水平拆分了。</p>
+<p>水平拆分：就是把同一张表分为多张表结构相同的表，每张表里存储一部分数据。而拆分的算法也比较多，常见的就是 <font color="red">取模、范围、和全局表</font> 等。</p>
+<p>还是拿上面电商网站的例子，比如业务会考虑做一次活动，预计注册用户会暴涨。那么就应该考虑对用户表进行水平拆分了，如下图：</p>
+<p><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/mysql/wpsQX7bwr.jpg" alt="img"></p>
+<p>这里使用的是取模分片，用户 <code>ID</code> 对 3 取模，如果余数是 0，则数据存放在<code>userinfo01</code> 库的 <code>user</code> 表中；如果余数是 1，则数据存放在 <code>userinfo02</code> 库的 <code>user</code> 表中；如果余数是 2，则数据存放在 <code>userinfo03</code> 库的 <code>user</code> 表中。</p>
+<blockquote>
+<p>哪些情况需要考虑分库分表？</p>
+</blockquote>
+<p>1.数据量过大，影响了运维的操作</p>
+<p>如果数据量比较大，其对数据库影响也会比较大，最常见的比如：影响备份、大表 <code>DDL</code> 导致主从长时间延迟等。下面仔细讲讲这两种情况：</p>
+<ul>
+<li>备份：如果单张表或者单个实例数据量太大，那备份可能需要占用大量的 <code>IO</code> 和磁盘空间，并且持续时间还会比较久。曾经听说过有公司的单个实例的备份从凌晨持续到当天下午的情况，这种场景下，尽管在从库备份，如果开启了读写分离，对业务的影响也是比较大的。</li>
+<li><code>DDL</code> 导致主从长时间延迟：大表执行 <code>DDL</code> 不但会产生 <code>MDL</code> 写锁（<code>MDL</code> 的风险可以复习第 15 节），并且还会导致主从延迟。</li>
+</ul>
+<p>直接执行大表 <code>DDL</code>，为什么会导致主从延迟？</p>
+<p>原因是主库执行完 <code>DDL</code> 后，才会写入到 <code>binlog</code> 里，然后传输到从库执行，而又因为从库 <code>SQL</code> 线程是单线程的，因此，需要等到这条 <code>DDL</code> 在从库执行完成，其他事务才能继续执行，而从库执行 <code>DDL</code> 这段时间，主从都是延迟的。</p>
+<p>2.把修改频繁的字段拆分出来</p>
+<p>比如电商业务场景的用户表，这张表可能包含了用户唯一标识 <code>ID</code>，用户名，昵称，联系方式，性别，出生日期，注册时间，积分等等。这些字段中，其实也只有积分会变更的比较频繁，因此可以把积分字段独立出来，然后加上用户唯一标识 <code>ID</code>。这样，用户表的更新次数就大大降低了。</p>
+<p>3.把大字段拆分出去</p>
+<p>比如电商业务的商品表，表里可能包含了商品的价格，生产日期，产地，供应商，商品详情和使用说明等。我们会发现商品详情和使用说明的字段特别大，可能字段类型需要配置成 <code>text</code> 或 <code>blob</code>，类似的字段占用的磁盘空间也是比较大。维护起来会比较麻烦，因此这种情况下，建议把这类大字段水平拆分出来。</p>
+<p>4.增长比较快的</p>
+<p>还是拿电商业务举例，比如订单表，如果预估未来增长速度会比较快，那么可以考虑提前对订单表进行分库分表。防止单表增长过快。</p>
+<p>5.降低不同库或者表的相互影响</p>
+<p>电商业务会涉及多个模块，比如会员，订单，库存等。比如搞了一个活动，扫码送会员积分，如果会员相关的表和订单相关的表在一个库中，那么很可能会员的活动会影响到订单业务。因此可以考虑将这些模块对应的表拆分到不同的库中。避免不同业务表或者库的相互影响。</p>
+<h2 id="5-2-分库分表的实现"><a href="#5-2-分库分表的实现" class="headerlink" title="5.2 分库分表的实现"></a>5.2 分库分表的实现</h2><p>1.通过程序</p>
+<p>如我已经通过垂直拆分，将不同业务表放在不同的业务库中。这种情况，程序只要每个业务配置不同的 <code>database</code> 即可。如果是水平拆分，业务可以通过程序实现，比如按照用户名首字母分，将不同首字母的名字过来的请求放在不同的库中。</p>
+<p>2.通过数据库中间件</p>
+<p>目前比较常见的就是通过数据库中间件，比如 <code>MyCAT</code>。这种对业务程序来说就比较友好了，某个业务库，程序端只要连逻辑库，而后端是通过 <code>MyCAT</code>，将这一个逻辑库指向多个物理库。然后通过分片字段，决定数据应该放在哪个分片里。如上面所讲的水平分割的示意图。</p>
+<h1 id="6-如何安全高效地删除大量无用数据"><a href="#6-如何安全高效地删除大量无用数据" class="headerlink" title="6. 如何安全高效地删除大量无用数据"></a>6. 如何安全高效地删除大量无用数据</h1><p>为了防止单张表过大，很多情况下，我们需要对历史数据做归档或者删除操作。那么如何高效删除大量无用数据呢？这一节就来讨论这个问题。在聊数据删除前，我们先来看看 <code>MySQL</code> 的共享表空间和独立表空间。</p>
+<h2 id="6-1-共享表空间和独立表空间"><a href="#6-1-共享表空间和独立表空间" class="headerlink" title="6.1 共享表空间和独立表空间"></a>6.1 共享表空间和独立表空间</h2><p><code>InnoDB</code> 的数据是按照表空间存放的，其表空间分为共享表空间和独立表空间。</p>
+<p>1.共享表空间</p>
+<p>共享表空间：表的数据放在系统共享表空间，也就是跟数据字典放一起。文件名为 <code>ibdata1</code>。可以通过参数 <code>innodb_data_file_path</code> 进行设置。在 <code>my.cnf</code> 中配置，如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[mysqld]</span><br><span class="line">innodb_data_file_path <span class="operator">=</span> ibdata1:<span class="number">1</span>G;ibdata2:<span class="number">1</span>G:autoextend</span><br></pre></td></tr></table></figure>
+
+<p>表示用两个文件（<code>ibdata1</code> 和 <code>ibdata2</code>）组成表空间，文件 <code>ibdata1</code> 的大小为 1G，文件 <code>ibdata2</code> 的大小为 1G，<code>autoextend</code> 表示用完 1G 可以自动增长。</p>
+<p>2.独立表空间</p>
+<p>独立表空间：每个 <code>InnoDB</code> 表数据存储在一个以 <code>.idb</code> 为后缀的文件中。</p>
+<p>参数 <code>innodb_file_per_table</code> 控制:</p>
+<ul>
+<li>设置为 <code>on</code> 表示使用独立表空间；</li>
+<li>设置为 <code>off</code> 表示使用共享表空间。</li>
+</ul>
+<h2 id="6-2-经验分享"><a href="#6-2-经验分享" class="headerlink" title="6.2 经验分享"></a>6.2 经验分享</h2><p>一般情况下建议设置为独立表空间，原因是：如果某张表被 <code>drop</code> 掉，会直接删除该表对应的文件，如果放在共享表空间中，即使执行了 <code>drop table</code> 操作，空间还是不能回收。</p>
+<h2 id="6-3-几种数据删除形式"><a href="#6-3-几种数据删除形式" class="headerlink" title="6.3 几种数据删除形式"></a>6.3 几种数据删除形式</h2><p>1.删除表</p>
+<p>如果是某张表（假如表名为 <code>t29</code>）的数据和表结构都不需要使用了，那么可以考虑 <code>drop</code> 掉。出于安全考虑，建议的步骤如下：</p>
+<ul>
+<li>首先将表名改为 <code>t29_bak_20191011</code>；</li>
+<li>然后等待半个月，观察是否有程序因为找不到表 <code>t29</code> 而报错；</li>
+<li>如果没有跟表 <code>t29</code> 相关的报错，则半个月后直接 <code>drop</code> 掉 <code>t29_bak_20191011</code>。</li>
+</ul>
+<p>2.清空表</p>
+<p>如果是某张表（假如表名为 <code>t29</code>）的历史数据不需要使用了，要做一次清空，则可以考虑使用 <code>truncate</code>。</p>
+<p>建议的步骤如下：</p>
+<ul>
+<li>创建一张与 <code>t29</code> 表结构相同的临时表： <ul>
+<li><code>create table t29_bak_20191011 like t29;</code></li>
+</ul>
+</li>
+<li>并将数据拷贝到临时表： <ul>
+<li><code>insert into t29_bak_20191011 select * from t29;</code></li>
+</ul>
+</li>
+<li>再清空该表： <ul>
+<li><code>truncate table t29;</code></li>
+</ul>
+</li>
+<li>如果空间不够，观察半个月后，考虑转移 <code>t29_bak_20191011</code> 的数据到备份机器上。然后删除表 <code>t29_bak_20191011</code>： <ul>
+<li><code>drop table t29_bak_20191011;</code></li>
+</ul>
+</li>
+</ul>
+<p>经验分享</p>
+<p>我不止一次遇到类似的情况：需要清空表而使用 <code>delete from table_name</code>，导致主从延迟和磁盘 <code>IO</code> 跑满的情况。原因是 <code>binlog</code> 为行模式的情况下，执行全表 <code>delete</code> 会生成每一行对应的删除操作，因此可能导致单个删除事务非常大。而 <code>truncate</code> 可以理解为 <code>drop + create</code>，在 <code>binlog</code> 为 <code>row</code> 模式的情况下，也只会产生一行 <code>truncate</code> 操作。所以，建议清空表时使用 <code>truncate</code> 而不使用 <code>delete</code>。</p>
+<p>3.非分区表删除部分记录</p>
+<p>实际更多的情况，我们是需要删除表中一部分数据，在没有配置分区表的情况下，就只能用 <code>delete</code> 了。也许我们有时会发现，在 <code>delete</code> 很多数据后，实际表文件大小没变化。这是什么原因呢？</p>
+<p>原因是: 如果通过 <code>delete</code> 删除某条记录，<code>InnoDB</code> 引擎会把这条记录标记为删除，但是磁盘文件的大小并不会缩小。如果之后要在这中间插入一条数据，则可以复用这个位置，如果一直没有数据插入，就会形成一个 “空洞”。因此 <code>delete</code> 命令是不能回收空间的，这也是 <code>delete</code> 后表文件大小没变化的原因。</p>
+<p>对于非分区表删除部分记录（比如删除 2017 年之前的数据，语句为：<code>delete from table_name where date&lt;‘2017-01-01’;</code>），建议的步骤是：</p>
+<ul>
+<li>首先备份全表；</li>
+<li>确保 <code>date</code> 字段有索引，如果没有索引，则需要添加索引（目的是避免执行删除命令时，全表扫描）；</li>
+<li>如果要删除的数据比较多，建议写一个循环，每次删除满足条件记录的 <code>1000</code> 条（目的是避免大事务），删完为止 <ul>
+<li><code>delete from table_name where date&lt;&#39;2017-01-01&#39; limit 1000;</code></li>
+</ul>
+</li>
+<li>最后重建表（目的是释放表空间，但是会锁表，建议在业务低峰执行）： <ul>
+<li><code>alter table table_name engine=InnoDB;</code></li>
+<li>或者 <code>optimize table student;</code></li>
+</ul>
+</li>
+</ul>
+<p>4.分区表删除部分分区</p>
+<p>从 <code>MySQL 5.1</code> 开始，支持分区。<code>MySQL</code> 分区是指将一张表按照某种规则（比如时间范围或者哈希等），划分为多个区块，各个区块所属的数据文件是相互独立的。相对慢慢 <code>delete</code>，这种方式删除历史数据效率高很多。因此，对于要经常删除历史数据的表，建议配置成分区表。以方便后续历史数据删除。</p>
+<h1 id="7-使用-MySQL-时，应用层可以这么优化"><a href="#7-使用-MySQL-时，应用层可以这么优化" class="headerlink" title="7. 使用 MySQL 时，应用层可以这么优化"></a>7. 使用 MySQL 时，应用层可以这么优化</h1><p>对于数据库的使用，我们不仅仅要考虑 <code>MySQL</code> 本身的优化，还需要考虑应用层的优化。因为有些线上问题，就是由于应用层设置不合理导致的。本节就来聊聊几种应用层的优化方法。</p>
+<h2 id="7-1-使用连接池"><a href="#7-1-使用连接池" class="headerlink" title="7.1 使用连接池"></a>7.1 使用连接池</h2><p><code>MySQL</code> 如果频繁创建和断开连接，那 <code>MySQL</code> 的开销会比较大，可能会占用过多的服务器内存资源，甚至导致响应时间变慢。此时就可以考虑使用连接池来改进性能。</p>
+<p>连接池可以理解为：创建一些持久连接的“池”，新的请求可以使用这些连接池，减少创建和断开连接的次数。</p>
+<p>其大致原理是：</p>
+<ul>
+<li>当进程启动时，创建相应的数据库连接池对象；</li>
+<li>如果程序需要请求数据库，则直接从连接池获取到一个连接；</li>
+<li>数据库请求完成后，释放数据库连接池。</li>
+</ul>
+<blockquote>
+<p>连接池会不会导致服务器连接过多呢？</p>
+</blockquote>
+<p>通常情况下，连接池不会导致服务器连接过多，因为它们会在进程间排队和共享连接。</p>
+<p>在《高性能 <code>MySQL</code>》第 14 章：应用层优化中就提到：当遇到连接池完全占满时，应该将连接请求进行排队，而不是扩展连接池。这样可以避免将压力都转到 <code>MySQL</code> 上而导致 <code>MySQL</code> 连接数过多。</p>
+<h2 id="7-2-减少对-MySQL-的访问"><a href="#7-2-减少对-MySQL-的访问" class="headerlink" title="7.2 减少对 MySQL 的访问"></a>7.2 减少对 MySQL 的访问</h2><p>避免对同一行数据做重复检索:</p>
+<ul>
+<li>增加 <code>Redis</code> 缓存层</li>
+</ul>
+<p>在很多业务场景，<code>Redis</code> 充当着不可或缺的角色。这里介绍几种通过 <code>Redis</code> 缓解 <code>MySQL</code> 压力的场景：</p>
+<ul>
+<li>计数器</li>
+<li>k-v 数据缓存</li>
+<li>消息队列<ul>
+<li>我曾经工作的一家公司就使用 <code>Redis</code> 实现短信消息队列。如果用户在 <code>APP</code> 上点击注册用户名密码，需要填下手机号验证，程序会将该用户的手机号放在 <code>Redis</code> 的 <code>list</code> 中，然后另外一个程序一直去消费 <code>list</code> 中的手机号，取出手机后，则调用第三方短信接口，发送手机信息给用户。</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-3-单表过大及时归档"><a href="#7-3-单表过大及时归档" class="headerlink" title="7.3 单表过大及时归档"></a>7.3 单表过大及时归档</h2><p>比如单张表过大，可能有下面这些影响：</p>
+<ul>
+<li>在修改表结构时导致长时间主从延迟；</li>
+<li>备份时间过久；</li>
+<li>查询速度可能也会变慢。</li>
+</ul>
+<p>因此，可以考虑对历史数据归档（比如日志数据），控制单表的数据量。</p>
+<h2 id="7-4-代码层读写分离"><a href="#7-4-代码层读写分离" class="headerlink" title="7.4 代码层读写分离"></a>7.4 代码层读写分离</h2><p>在配置了 <code>MySQL</code> 主从环境的情况下，可以考虑使用读写分离，通过程序配置的这种方式，在专栏第 27 节有提到过。更新走主库，查询走从库。当然，主从同步可能因为大事务或者网络等原因导致同步延迟，在使用读写分离是也需要考虑到延迟这一点。</p>
+<h2 id="7-5-表的索引提前规划"><a href="#7-5-表的索引提前规划" class="headerlink" title="7.5 表的索引提前规划"></a>7.5 表的索引提前规划</h2><p>在专栏第 10 节中，我们讲到了为什么添加索引能提高查询速度？因此，条件字段有索引显得格外重要。当开发或者 <code>DBA</code> 在创建新表时，就应该考虑在表的条件字段添加合适索引。这样可以避免业务上线后，数据量一上来就出现大量慢查询而导致 <code>MySQL</code> 服务器高负载。</p>
+<h1 id="8-MySQL-整体优化思路"><a href="#8-MySQL-整体优化思路" class="headerlink" title="8. MySQL 整体优化思路"></a>8. MySQL 整体优化思路</h1><h2 id="8-1-硬件相关优化"><a href="#8-1-硬件相关优化" class="headerlink" title="8.1 硬件相关优化"></a>8.1 硬件相关优化</h2><h2 id="8-2-系统层面优化"><a href="#8-2-系统层面优化" class="headerlink" title="8.2 系统层面优化"></a>8.2 系统层面优化</h2><h2 id="8-3-MySQL-层优化"><a href="#8-3-MySQL-层优化" class="headerlink" title="8.3 MySQL 层优化"></a>8.3 MySQL 层优化</h2><p>1.参数优化</p>
+<ul>
+<li><p><code>innodb_buffer_pool_size</code>:</p>
+<ul>
+<li>该参数控制 <code>InnoDB</code> 缓存表和索引数据的内存区域大小。对性能影响非常大，建议设置为机器内存的 50-80%。</li>
+</ul>
+</li>
+<li><p><code>innodb_flush_log_at_trx_commit</code>:</p>
+<ul>
+<li><code>InnoDB</code> 的 <code>redo</code> 日志刷新方式，对 <code>InnoDB</code> 的影响会很大。</li>
+</ul>
+</li>
+<li><p><code>sync_binlog</code>:</p>
+<ul>
+<li>控制累积多少个事务后才将二进制日志 <code>fsync</code> 到磁盘。</li>
+</ul>
+</li>
+<li><p><code>innodb_file_per_table</code>:</p>
+<ul>
+<li>开启独立表空间。</li>
+</ul>
+</li>
+<li><p><code>max_connection</code>:</p>
+<ul>
+<li>最大连接数。不能设置的过小，防止客户端连接失败；也不能设置的过大，防止数据库内存资源过多消耗。</li>
+</ul>
+</li>
+<li><p><code>long_query_time</code>:</p>
+<ul>
+<li>慢查询时间阀值。</li>
+</ul>
+</li>
+<li><p><code>query_cache_type</code>&#x2F;<code>query_cache_size</code>:</p>
+<ul>
+<li>建议这两个参数都设置为 0。</li>
+</ul>
+</li>
+</ul>
+<p>2.<code>MySQL</code> 设计优化</p>
+<ul>
+<li>使用 <code>InnoDB</code> 存储引擎，不建议使用 <code>MyISAM</code> 存储引擎；</li>
+<li>预估表数据量和访问量，如果数据量或者访问量比较大，则需要提前考虑分库分表；</li>
+<li>指定合适的数据库规范，在设计表、执行 <code>SQL</code> 语句时按照数据库规范来进行。（<code>MySQL</code> 操作规范将在下一节详细讲解）。</li>
+</ul>
+<h1 id="9-MySQL-操作规范"><a href="#9-MySQL-操作规范" class="headerlink" title="9. MySQL 操作规范"></a>9. MySQL 操作规范</h1><h2 id="9-1-命名规范"><a href="#9-1-命名规范" class="headerlink" title="9.1 命名规范"></a>9.1 命名规范</h2><p>1、表名建议使用有业务意义的英文词汇，必要时可加数字和下划线，并以英文字母开头；</p>
+<p>2、库、表、字段全部采用小写；</p>
+<ul>
+<li><code>MySQL</code> 在 <code>Linux</code> 下默认是区分大小写的，而在 <code>Windows</code> 下不区分大小写。因此，防止出现问题，建议都设置为小写。</li>
+</ul>
+<p>3、避免用 <code>MySQL</code> 的保留字，<code>MySQL</code> 保留字请参考官方手册：<code>9.3 Keywords and Reserved Words；</code></p>
+<p>4、命名（包括表名、列名）禁止超过 30 个字符；</p>
+<p>5、临时库、表名必须以 <code>tmp</code> 为前缀，并以日期为后缀，如：<code>tmp_shop_info_20190404；</code></p>
+<p>6、备份库、表必须以 <code>bak</code> 为前缀，并以日期为后缀，如：<code>bak_shop_info_20190404；</code></p>
+<p>7、索引命名：</p>
+<ul>
+<li>非唯一索引必须按照”idx_字段名称”进行命名；</li>
+<li>唯一索引必须按照”uniq_字段名称”进行命名。</li>
+</ul>
+<h2 id="9-2-设计规范"><a href="#9-2-设计规范" class="headerlink" title="9.2 设计规范"></a>9.2 设计规范</h2><p>1、主键：</p>
+<ul>
+<li>表必须有主键；</li>
+<li>不使用更新频繁的列做主键；</li>
+<li>尽量不选择字符串列做主键；</li>
+<li>不使用 <code>UUID</code>、<code>MD5</code>、<code>HASH</code> 做主键；</li>
+<li>默认使用非空的唯一键。</li>
+</ul>
+<p>2、如无特殊要求，建议都使用 <code>InnoDB</code> 引擎；</p>
+<p>3、默认使用 <code>utf8mb4</code> 字符集，数据排序规则使用 <code>utf8mb4_general_ci</code>；</p>
+<ul>
+<li>原因：<code>utf8mb4</code> 为万国码，无乱码风险；与 <code>utf8</code> 编码相比，<code>utf8mb4</code> 能支持 <code>Emoji</code> 表情。</li>
+</ul>
+<p>4、所有表、字段都需要增加 <code>comment</code> 来描述此表、字段所表示的含义；</p>
+<ul>
+<li>比如：<code>data_status TINYINT NOT NULL DEFAULT &#39;1&#39; COMMENT &#39;1-代表记录有效，0-代表记录无效&#39;。</code></li>
+</ul>
+<p>5、如无说明，表必须包含 <code>create_time</code> 和 <code>update_time</code> 字段，即表必须包含记录创建时间和修改时间的字段；</p>
+<p>6、用尽量少的存储空间来存储一个字段的数据：</p>
+<ul>
+<li>能用 <code>int</code> 的就不用 <code>char</code> 或者 <code>varchar</code>；</li>
+<li>能用 <code>tinyint</code> 的就不用 <code>int</code>；</li>
+<li>使用 <code>UNSIGNED</code> 存储非负数值；</li>
+<li>只存储年使用 <code>YEAR</code> 类型；</li>
+<li>只存储日期使用 <code>DATE</code> 类型。</li>
+</ul>
+<p>7、存储精确浮点数必须使用 <code>DECIMAL</code> 替代 <code>FLOAT</code> 和 <code>DOUBLE</code>；</p>
+<ul>
+<li>原因：在存储的时候，<code>FLOAT</code> 和 <code>DOUBLE</code> 都存在精度损失的问题，很可能在比较值的时候，得到不正确的结果。</li>
+</ul>
+<p>8、尽可能不使用 <code>TEXT</code>、<code>BLOB</code> 类型；</p>
+<ul>
+<li>原因：会浪费更多的磁盘和内存空间，非必要的大量大字段查询会淘汰掉热数据，导致内存命中率急剧降低，影响数据库性能。如果实在有某个字段过长需要使用 <code>TEXT</code>、<code>BLOB</code> 类型，则建议独立出来一张表，用主键来对应，避免影响原表的查询效率。</li>
+</ul>
+<p>9、禁止在数据库中存储明文密码；</p>
+<p>10、索引设计规范：</p>
+<ul>
+<li>需要添加索引的字段 <ul>
+<li><code>UPDATE</code>、<code>DELETE</code> 语句的 <code>WHERE</code> 条件列；</li>
+<li><code>ORDER BY</code>、<code>GROUP BY</code>、<code>DISTINCT</code> 的字段（原因可复习第 6 节）； </li>
+<li>多表 <code>JOIN</code> 的字段（原因可复习第 8 节）。</li>
+</ul>
+</li>
+<li>单表索引建议控制在 5 个以内；</li>
+<li>适当配置联合索引；<ul>
+<li>比如方便查询能走覆盖索引，或者几个字段同时作为条件的概率很高时，当然还有其他很多种情况可以设置联合索引，具体可以复习第 13 节。</li>
+</ul>
+</li>
+<li>业务上具有唯一性的字段，添加成唯一索引；<ul>
+<li>遇到过几次字段在业务场景上要求唯一，但是该字段在数据库里的数据却出现了重复。因此在代码层考虑外，还需要在 <code>MySQL</code> 上的对应字段添加唯一索引。</li>
+</ul>
+</li>
+<li>在 <code>varchar</code> 字段上建立索引时，建议根据实际文本区分度指定索引长度；<ul>
+<li>原因：可以降低索引所占用的空间，并且很多时候，比如字符串基本是长度大于 20，但是只要建立长度为 20 的索引，就已经有很高的区分度了。可以使用 <code>count(distinct left(列名, 索引长度))/count(*)</code>的区分度来确定。</li>
+</ul>
+</li>
+<li>索引禁忌： <ul>
+<li>不在低基数列上建立索引，例如：性别字段。</li>
+<li>不在索引列进行数学运算和函数运算（原因，做函数操作可能会导致使用不了索引，具体可以复习第 4 节）</li>
+</ul>
+</li>
+</ul>
+<p>11、不建议使用外键；</p>
+<ul>
+<li>原因：外键会导致表与表之间耦合，<code>update</code> 与 <code>delete</code> 操作都会涉及相关联的表，十分影响 <code>sql</code> 的性能，甚至会造成死锁。高并发情况下容易造成数据库性能损失。</li>
+</ul>
+<p>12、禁止使用存储过程、视图、触发器、<code>Event</code>；</p>
+<ul>
+<li>原因：高并发的情况下，这些功能很可能将数据库拖死，业务逻辑放到服务层具备更好的扩展性。</li>
+</ul>
+<p>13、单表列数目建议小于 30；</p>
+<h2 id="9-3-SQL-语句规范"><a href="#9-3-SQL-语句规范" class="headerlink" title="9.3 SQL 语句规范"></a>9.3 SQL 语句规范</h2><p>1、避免隐式转换；</p>
+<ul>
+<li>具体原因可以复习第 4 节中第 2 部分：隐式转换。</li>
+</ul>
+<p>2、尽量不使用 <code>select *</code>,只 <code>select</code> 需要的字段 ；</p>
+<ul>
+<li>原因：读取不需要的列会增加 <code>CPU</code>、<code>IO</code>、<code>NET</code> 消耗，并且不能有效的利用覆盖索引。使用 <code>SELECT *</code> 容易在增加或者删除字段后导致程序报错。</li>
+</ul>
+<p>3、禁止使用 <code>INSERT INTO t_xxx VALUES (xxx)</code>，必须显示指定插入的列属性；</p>
+<ul>
+<li>原因：容易在增加或者删除字段后导致程序报错。</li>
+</ul>
+<p>4、尽量不使用负向查询；</p>
+<ul>
+<li>比如 <code>not in</code>&#x2F;<code>like</code>。</li>
+</ul>
+<p>5、禁止以 <code>%</code> 开头的模糊查询。</p>
+<ul>
+<li>原因：使用不了索引（具体例子可以复习第 4 节中的第 3 部分：模糊查询）。</li>
+</ul>
+<p>6、禁止单条 <code>SQL</code> 语句同时更新多个表；</p>
+<p>7、统计记录数使用 <code>select count(*)</code>，而不是 <code>select count(primary_key)</code>或者 <code>select count(普通字段名)</code>；</p>
+<ul>
+<li>原因：可能会导致走的索引不是最优的或者导致统计数字不准确。（具体例子可以复习第 9 节）。</li>
+</ul>
+<p>8、建议将子查询转换为关联查询；</p>
+<p>9、建议应用程序捕获 <code>SQL</code> 异常，并有相应处理；</p>
+<p>10、<code>SQL</code> 中不建议使用 <code>sleep()</code>，如特殊需求需要用到 <code>sleep()</code>，请提前告知 <code>DBA</code>；</p>
+<p>11、避免大表的 <code>join</code>。</p>
+<h2 id="9-4-行为规范"><a href="#9-4-行为规范" class="headerlink" title="9.4 行为规范"></a>9.4 行为规范</h2><p>1、批量导入、导出数据必须提前通知 <code>DBA</code> 协助观察；</p>
+<p>2、有可能导致 <code>MySQL QPS</code> 上升的活动，提前告知 <code>DBA</code>；</p>
+<p>3、同一张表的多个 <code>alter</code> 合成一次操作；</p>
+<p>4、不在业务高峰期批量更新、查询数据库；</p>
+<p>5、删除表或者库要求尽量先 <code>rename</code>，观察几天，确定对业务没影响，再 <code>drop</code>。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://blog.shershon.top">谭晓珊</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.shershon.top/2022/05/07/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/">http://blog.shershon.top/2022/05/07/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%B8%B8%E8%A7%81%E7%9F%A5%E8%AF%86%E7%82%B9/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.shershon.top" target="_blank">码农小山</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/MySQL/">MySQL</a></div><div class="post_share"><div class="social-share" data-image="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_wechat.jpeg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_wechat.jpeg" alt="微信"/></a><div class="post-qr-code-desc">微信</div></li><li class="reward-item"><a href="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_alipay.jpeg" target="_blank"><img class="post-qr-code-img" src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/reward_alipay.jpeg" alt="支付宝"/></a><div class="post-qr-code-desc">支付宝</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/07/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95/6-%E6%A0%88%E3%80%81%E9%98%9F%E5%88%97%E7%9B%B8%E5%85%B3%E7%9A%84%E7%AE%97%E6%B3%95/"><img class="prev-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">栈、队列、优先队列相关算法</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/06/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/"><img class="next-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">MySQL分库分表</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2022/05/06/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/" title="MySQL分库分表"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-06</div><div class="title">MySQL分库分表</div></div></a></div><div><a href="/2022/05/10/%E5%90%8E%E7%AB%AF/MySQL/%E4%BA%8B%E5%8A%A1/" title="MySQL 事务"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-10</div><div class="title">MySQL 事务</div></div></a></div><div><a href="/2022/05/05/%E5%90%8E%E7%AB%AF/MySQL/MySQL%E5%9F%BA%E7%A1%80/" title="MySQL基础"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-05</div><div class="title">MySQL基础</div></div></a></div><div><a href="/2022/05/09/%E5%90%8E%E7%AB%AF/MySQL/%E7%B4%A2%E5%BC%95/" title="MySQL 索引"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-09</div><div class="title">MySQL 索引</div></div></a></div><div><a href="/2022/05/11/%E5%90%8E%E7%AB%AF/MySQL/%E9%94%81/" title="MySQL 锁"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-11</div><div class="title">MySQL 锁</div></div></a></div><div><a href="/2022/05/08/%E5%90%8E%E7%AB%AF/MySQL/SQL%E4%BC%98%E5%8C%96/" title="SQL 优化"><img class="cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-05-08</div><div class="title">SQL 优化</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://raw.githubusercontent.com/shershon1991/picImgBed/master/personal/21358691.jpeg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">谭晓珊</div><div class="author-info__description">生活幸福，健康快乐！</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">182</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">40</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">22</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/shershon1991"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/shershon1991" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:18810877074@163.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">新人报道，请大家多多关照！</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%A6%82%E4%BD%95%E9%A2%84%E9%98%B2-SQL-%E6%B3%A8%E5%85%A5%EF%BC%9F"><span class="toc-text">1.如何预防 SQL 注入？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BD%95%E4%B8%BA-SQL-%E6%B3%A8%E5%85%A5%EF%BC%9F"><span class="toc-text">1.1 何为 SQL 注入？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C-SQL-%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB%EF%BC%9F"><span class="toc-text">1.2 如何进行 SQL 注入攻击？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%A6%82%E4%BD%95%E9%A2%84%E9%98%B2-SQL-%E6%B3%A8%E5%85%A5%EF%BC%9F"><span class="toc-text">1.3 如何预防 SQL 注入？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E4%B8%BB%E9%94%AE%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E8%AE%BE%E7%BD%AE%E4%B8%BA%E8%87%AA%E5%A2%9E%EF%BC%9F"><span class="toc-text">2.主键是否需要设置为自增？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E4%B8%BB%E9%94%AE%E5%92%8C%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">2.1 主键和聚簇索引的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%B8%BB%E9%94%AE%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E8%AE%BE%E7%BD%AE%E4%B8%BA%E8%87%AA%E5%A2%9E%EF%BC%9F"><span class="toc-text">2.2 主键是否需要设置为自增？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-MySQL-%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E5%BC%80%E5%90%AF%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="toc-text">3.MySQL 是否需要开启查询缓存？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E8%AE%A4%E8%AF%86-QC"><span class="toc-text">3.1 认识 QC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-QC-%E7%9A%84%E4%BC%98%E5%8A%A3"><span class="toc-text">3.2 QC 的优劣</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81%E5%BC%80%E5%90%AF-QC%EF%BC%9F"><span class="toc-text">3.3 是否需要开启 QC？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E6%80%8E%E6%A0%B7%E5%BC%80%E5%90%AF%E5%92%8C%E5%85%B3%E9%97%AD-QC%EF%BC%9F"><span class="toc-text">3.4 怎样开启和关闭 QC？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E5%BC%80%E5%90%AF-QC-%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-text">3.5 开启 QC 的注意事项</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E4%BD%BF%E7%94%A8%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-text">4. 使用读写分离需要注意哪些？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-MySQL-%E7%9A%84%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="toc-text">4.1 MySQL 的主从复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-MySQL-%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">4.2 MySQL 半同步复制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E5%B8%B8%E8%A7%81%E7%9A%84%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%96%B9%E5%BC%8F"><span class="toc-text">4.3 常见的读写分离方式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E5%93%AA%E4%BA%9B%E6%83%85%E5%86%B5%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F"><span class="toc-text">5. 哪些情况需要考虑分库分表？</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-MySQL-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E6%8B%86%E5%88%86%E6%96%B9%E6%B3%95"><span class="toc-text">5.1 MySQL 分库分表拆分方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">5.2 分库分表的实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E5%A6%82%E4%BD%95%E5%AE%89%E5%85%A8%E9%AB%98%E6%95%88%E5%9C%B0%E5%88%A0%E9%99%A4%E5%A4%A7%E9%87%8F%E6%97%A0%E7%94%A8%E6%95%B0%E6%8D%AE"><span class="toc-text">6. 如何安全高效地删除大量无用数据</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#6-1-%E5%85%B1%E4%BA%AB%E8%A1%A8%E7%A9%BA%E9%97%B4%E5%92%8C%E7%8B%AC%E7%AB%8B%E8%A1%A8%E7%A9%BA%E9%97%B4"><span class="toc-text">6.1 共享表空间和独立表空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-2-%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB"><span class="toc-text">6.2 经验分享</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-3-%E5%87%A0%E7%A7%8D%E6%95%B0%E6%8D%AE%E5%88%A0%E9%99%A4%E5%BD%A2%E5%BC%8F"><span class="toc-text">6.3 几种数据删除形式</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-%E4%BD%BF%E7%94%A8-MySQL-%E6%97%B6%EF%BC%8C%E5%BA%94%E7%94%A8%E5%B1%82%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E4%BC%98%E5%8C%96"><span class="toc-text">7. 使用 MySQL 时，应用层可以这么优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#7-1-%E4%BD%BF%E7%94%A8%E8%BF%9E%E6%8E%A5%E6%B1%A0"><span class="toc-text">7.1 使用连接池</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-2-%E5%87%8F%E5%B0%91%E5%AF%B9-MySQL-%E7%9A%84%E8%AE%BF%E9%97%AE"><span class="toc-text">7.2 减少对 MySQL 的访问</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-3-%E5%8D%95%E8%A1%A8%E8%BF%87%E5%A4%A7%E5%8F%8A%E6%97%B6%E5%BD%92%E6%A1%A3"><span class="toc-text">7.3 单表过大及时归档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-4-%E4%BB%A3%E7%A0%81%E5%B1%82%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB"><span class="toc-text">7.4 代码层读写分离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-5-%E8%A1%A8%E7%9A%84%E7%B4%A2%E5%BC%95%E6%8F%90%E5%89%8D%E8%A7%84%E5%88%92"><span class="toc-text">7.5 表的索引提前规划</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-MySQL-%E6%95%B4%E4%BD%93%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF"><span class="toc-text">8. MySQL 整体优化思路</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#8-1-%E7%A1%AC%E4%BB%B6%E7%9B%B8%E5%85%B3%E4%BC%98%E5%8C%96"><span class="toc-text">8.1 硬件相关优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-2-%E7%B3%BB%E7%BB%9F%E5%B1%82%E9%9D%A2%E4%BC%98%E5%8C%96"><span class="toc-text">8.2 系统层面优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-3-MySQL-%E5%B1%82%E4%BC%98%E5%8C%96"><span class="toc-text">8.3 MySQL 层优化</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-MySQL-%E6%93%8D%E4%BD%9C%E8%A7%84%E8%8C%83"><span class="toc-text">9. MySQL 操作规范</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#9-1-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-text">9.1 命名规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-2-%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83"><span class="toc-text">9.2 设计规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-3-SQL-%E8%AF%AD%E5%8F%A5%E8%A7%84%E8%8C%83"><span class="toc-text">9.3 SQL 语句规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-4-%E8%A1%8C%E4%B8%BA%E8%A7%84%E8%8C%83"><span class="toc-text">9.4 行为规范</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/10/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/03-%E5%88%87%E7%89%87/" title="Go底层探索(三):切片">Go底层探索(三):切片</a><time datetime="2023-03-09T16:00:00.000Z" title="发表于 2023-03-10 00:00:00">2023-03-10</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/08/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/02-%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="Go底层探索(二):字符串">Go底层探索(二):字符串</a><time datetime="2023-03-07T16:00:00.000Z" title="发表于 2023-03-08 00:00:00">2023-03-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/02/%E7%BC%96%E7%A8%8B/PHP/PHP%E6%89%A9%E5%B1%95/4-jwt/" title="php扩展(四):jwt">php扩展(四):jwt</a><time datetime="2023-03-01T16:00:00.000Z" title="发表于 2023-03-02 00:00:00">2023-03-02</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/27/%E7%BC%96%E7%A8%8B/Go/%E8%BF%9B%E9%98%B6%E7%AF%87/%E5%BA%95%E5%B1%82%E6%8E%A2%E7%B4%A2/01-%E7%BC%96%E8%AF%91%E5%99%A8/" title="Go底层探索(一):编译器">Go底层探索(一):编译器</a><time datetime="2023-02-26T16:00:00.000Z" title="发表于 2023-02-27 00:00:00">2023-02-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2022/10/05/%E7%BC%96%E7%A8%8B/Go/%E6%89%A9%E5%B1%95%E5%8C%85/31-rocketmq/" title="Go扩展包(三十一):rocketmq">Go扩展包(三十一):rocketmq</a><time datetime="2022-10-04T16:00:00.000Z" title="发表于 2022-10-05 00:00:00">2022-10-05</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2022 - 2023 By 谭晓珊</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a><br><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn">鄂ICP备2022015295号-1</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat_btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="algolia-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="search-wrap"><div id="algolia-search-input"></div><hr/><div id="algolia-search-results"><div id="algolia-hits"></div><div id="algolia-pagination"></div><div id="algolia-info"><div class="algolia-stats"></div><div class="algolia-poweredBy"></div></div></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/algoliasearch/dist/algoliasearch-lite.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instantsearch.js/dist/instantsearch.production.min.js"></script><script src="/js/search/algolia.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'YjWLdM2rBo9Vj9GlbMghmKFc-gzGzoHsz',
+      appKey: 'Vic4lHitiOVBpUuCtQcEwmCI',
+      avatar: 'wavatar',
+      serverURLs: '',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !false) {
+  if (false) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script>(function(d, w, c) {
+    w.ChatraID = 'Cqd4CQF7bWHcxHyNs';
+    var s = d.createElement('script');
+    w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+    };
+    s.async = true;
+    s.src = 'https://call.chatra.io/chatra.js';
+    if (d.head) d.head.appendChild(s);
+})(document, window, 'Chatra');
+
+if (true) {
+  var chatBtnFn = () => {
+    var chatBtn = document.getElementById("chat_btn")
+    chatBtn.addEventListener("click", function(){
+      Chatra('openChat')
+    });
+  }
+  chatBtnFn()
+} else {
+  if (false) {
+    function chatBtnHide () {
+      Chatra('hide')
+    }
+    function chatBtnShow () {
+      Chatra('show')
+    }
+  }
+}</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
